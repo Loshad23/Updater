@@ -3,223 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Rental Updates | MIUI Style</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Update and Feature Centre</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --mi-orange: #FF6700;
-            --mi-dark: #1E1E1E;
-            --mi-light: #FFFFFF;
-            --mi-gray: #F5F5F5;
-            --mi-card-bg: rgba(255, 255, 255, 0.9);
-            --mi-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --dark-1: #0f0c29;
+            --dark-2: #302b63;
+            --dark-3: #24243e;
+            --text-glow: 0 0 10px rgba(255,255,255,0.8);
+            --card-bg: rgba(30, 30, 46, 0.6);
         }
         
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--mi-gray);
-            color: var(--mi-dark);
-            line-height: 1.6;
-            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(-45deg, var(--dark-1), var(--dark-2), var(--dark-3));
+            background-size: 400% 400%;
+            color: white;
             margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            animation: gradientBG 15s ease infinite;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         
         .container {
-            max-width: 100%;
-            width: 100%;
-            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            backdrop-filter: blur(8px);
         }
         
         header {
             text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, #FF6700 0%, #FF8C00 100%);
-            color: var(--mi-light);
-            margin-bottom: 30px;
-            border-radius: 0 0 20px 20px;
-            box-shadow: var(--mi-shadow);
+            margin-bottom: 60px;
+            position: relative;
         }
         
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 500;
-            margin-bottom: 10px;
+        .main-title {
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--text-glow);
+            animation: glowPulse 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 10px rgba(255,255,255,0.8); }
+            100% { text-shadow: 0 0 20px rgba(255,255,255,1.2); }
         }
         
         .subtitle {
             font-weight: 300;
-            opacity: 0.9;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            letter-spacing: 1px;
         }
         
         .update-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
         
         .update-card {
-            background: var(--mi-card-bg);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: var(--mi-shadow);
-            transition: transform 0.3s ease;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
         }
         
         .update-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .update-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
         .update-title {
-            font-size: 1.4rem;
-            font-weight: 500;
-            color: var(--mi-orange);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            letter-spacing: 1px;
         }
         
         .update-version {
-            background: var(--mi-orange);
+            background: rgba(255,255,255,0.1);
             color: white;
-            padding: 4px 12px;
+            padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.2);
         }
         
         .update-meta {
             display: flex;
-            gap: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
             margin-bottom: 20px;
-            color: #666;
-            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+        }
+        
+        .update-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .update-description {
-            margin-bottom: 20px;
-            color: #444;
+            margin-bottom: 25px;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
         }
         
         .btn-download {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: var(--mi-orange);
+            background: rgba(255,255,255,0.1);
             color: white;
-            padding: 12px 30px;
-            border-radius: 25px;
+            padding: 14px 30px;
+            border-radius: 30px;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(255, 103, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(5px);
             width: 100%;
-            max-width: 200px;
+            letter-spacing: 1px;
         }
         
         .btn-download:hover {
-            background: #E55C00;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 103, 0, 0.4);
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .btn-download i {
-            margin-right: 8px;
+            margin-right: 10px;
+            font-size: 1.1rem;
         }
         
         footer {
             text-align: center;
-            padding: 30px 0;
-            color: #666;
+            padding: 50px 0 30px;
+            color: rgba(255,255,255,0.5);
             font-size: 0.9rem;
-            margin-top: 50px;
+            margin-top: 60px;
         }
         
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2rem;
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
             }
             
-            .update-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            
-            .update-meta {
-                flex-direction: column;
-                gap: 5px;
-            }
-            
-            .btn-download {
-                max-width: 100%;
+            .update-container {
+                grid-template-columns: 1fr;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>UPDATE CENTER</h1>
-            <p class="subtitle">Download latest firmware for rental devices</p>
-        </div>
-    </header>
-    
-    <div class="update-container">
-        <div class="update-card">
-            <div class="update-header">
-                <h2 class="update-title">Stable Firmware</h2>
-                <span class="update-version">v2.1.0</span>
-            </div>
-            <div class="update-meta">
-                <span><i class="fas fa-calendar-alt"></i> 15 June 2024</span>
-                <span><i class="fas fa-database"></i> 245 MB</span>
-                <span><i class="fas fa-shield-alt"></i> Security Patch</span>
-            </div>
-            <p class="update-description">
-                Latest stable firmware with security updates and performance improvements.
-            </p>
-            <a href="https://drive.google.com/uc?export=download&id=ВАШ_ID" class="btn-download">
-                <i class="fas fa-download"></i> DOWNLOAD
-            </a>
-        </div>
+    <div class="container">
+        <header>
+            <h1 class="main-title">Update and Feature Centre</h1>
+            <p class="subtitle">Download the latest updates for your device</p>
+        </header>
         
-        <div class="update-card">
-            <div class="update-header">
-                <h2 class="update-title">Configuration Pack</h2>
-                <span class="update-version">2024.06</span>
+        <div class="update-container">
+            <div class="update-card">
+                <div class="update-header">
+                    <h2 class="update-title">Stable Firmware</h2>
+                    <span class="update-version">v2.1.0</span>
+                </div>
+                <div class="update-meta">
+                    <span><i class="fas fa-calendar-alt"></i> 15 June 2024</span>
+                    <span><i class="fas fa-database"></i> 245 MB</span>
+                    <span><i class="fas fa-shield-alt"></i> Security Patch</span>
+                </div>
+                <p class="update-description">
+                    Latest stable firmware with security updates and performance improvements for optimal device experience.
+                </p>
+                <a href="https://drive.google.com/uc?export=download&id=ВАШ_ID" class="btn-download">
+                    <i class="fas fa-download"></i> DOWNLOAD UPDATE
+                </a>
             </div>
-            <div class="update-meta">
-                <span><i class="fas fa-calendar-alt"></i> 10 June 2024</span>
-                <span><i class="fas fa-database"></i> 15 MB</span>
-                <span><i class="fas fa-cog"></i> Settings</span>
+            
+            <div class="update-card">
+                <div class="update-header">
+                    <h2 class="update-title">Configuration Pack</h2>
+                    <span class="update-version">2024.06</span>
+                </div>
+                <div class="update-meta">
+                    <span><i class="fas fa-calendar-alt"></i> 10 June 2024</span>
+                    <span><i class="fas fa-database"></i> 15 MB</span>
+                    <span><i class="fas fa-cog"></i> Settings</span>
+                </div>
+                <p class="update-description">
+                    Pre-configured settings package for enhanced device performance and battery optimization.
+                </p>
+                <a href="https://drive.google.com/uc?export=download&id=ВАШ_ID" class="btn-download">
+                    <i class="fas fa-download"></i> DOWNLOAD PACK
+                </a>
             </div>
-            <p class="update-description">
-                Pre-configured settings for optimal device performance.
-            </p>
-            <a href="https://drive.google.com/uc?export=download&id=ВАШ_ID" class="btn-download">
-                <i class="fas fa-download"></i> DOWNLOAD
-            </a>
         </div>
     </div>
     
     <footer>
-        <div class="container">
-            <p>Phone Rental Service © 2024 | MIUI Style Update Center</p>
-        </div>
+        <p>Phone Rental Service © 2024 | All Rights Reserved</p>
     </footer>
 </body>
 </html>
