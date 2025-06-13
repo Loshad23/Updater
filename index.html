@@ -8,22 +8,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --dark-1: #0f0c29;
-            --dark-2: #302b63;
-            --dark-3: #24243e;
+            --blue-1: #0a0a2a;    /* Тёмно-синий */
+            --blue-2: #1a1a4a;    /* Средний синий */
+            --purple-1: #3d1a68;  /* Фиолетовый */
+            --purple-2: #6a3093;  /* Яркий фиолетовый */
             --text-glow: 0 0 10px rgba(255,255,255,0.8);
-            --glass-bg: rgba(40, 40, 60, 0.3);
+            --glass-bg: rgba(40, 40, 80, 0.25);
         }
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(-45deg, var(--dark-1), var(--dark-2), var(--dark-3));
+            background: linear-gradient(-45deg, var(--blue-1), var(--purple-1), var(--blue-2), var(--purple-2));
             background-size: 400% 400%;
             color: white;
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            animation: gradientBG 15s ease infinite;
+            animation: gradientBG 12s ease infinite;
         }
         
         @keyframes gradientBG {
@@ -49,7 +50,7 @@
             margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            background: linear-gradient(90deg, #fff, #aaa);
+            background: linear-gradient(90deg, #fff, #d4c4fb);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -58,8 +59,8 @@
         }
         
         @keyframes glowPulse {
-            0% { text-shadow: 0 0 10px rgba(255,255,255,0.8); }
-            100% { text-shadow: 0 0 20px rgba(255,255,255,1.2); }
+            0% { text-shadow: 0 0 10px rgba(212, 196, 251, 0.8); }
+            100% { text-shadow: 0 0 20px rgba(212, 196, 251, 1.2); }
         }
         
         .subtitle {
@@ -67,6 +68,7 @@
             font-size: 1.2rem;
             opacity: 0.8;
             letter-spacing: 1px;
+            color: rgba(255,255,255,0.9);
         }
         
         .update-container {
@@ -88,7 +90,6 @@
             overflow: hidden;
         }
         
-        /* Эффект "стеклянного блика" */
         .update-card::before {
             content: '';
             position: absolute;
@@ -204,10 +205,6 @@
         @media (max-width: 768px) {
             .main-title {
                 font-size: 2.2rem;
-            }
-            
-            .update-card {
-                backdrop-filter: blur(8px);
             }
         }
     </style>
