@@ -8,23 +8,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --blue-1: #0a0a2a;
-            --blue-2: #1a1a4a;
-            --purple-1: #3d1a68;
-            --purple-2: #6a3093;
-            --text-glow: 0 0 15px rgba(212, 196, 251, 0.8);
-            --glass-bg: rgba(70, 70, 120, 0.15); /* Более прозрачный */
+            --blue-1: #050520;
+            --blue-2: #1a1a6a;
+            --purple-1: #4a1a7a;
+            --purple-2: #8a2be2;
+            --text-glow: 0 0 15px rgba(212, 196, 251, 0.9);
+            --glass-bg: rgba(40, 40, 90, 0.2);
         }
         
         body {
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(-45deg, var(--blue-1), var(--purple-1), var(--blue-2), var(--purple-2));
-            background-size: 300% 300%; /* Увеличили для более плавного перехода */
+            background-size: 300% 300%;
             color: white;
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            animation: gradientBG 8s ease infinite; /* Увеличили скорость (было 12s) */
+            animation: gradientBG 5s ease infinite;
         }
         
         @keyframes gradientBG {
@@ -55,7 +55,7 @@
             background-clip: text;
             color: transparent;
             text-shadow: var(--text-glow);
-            animation: glowPulse 3s ease-in-out infinite alternate;
+            animation: glowPulse 2.5s ease-in-out infinite alternate;
         }
         
         @keyframes glowPulse {
@@ -83,17 +83,16 @@
             border-radius: 20px;
             padding: 25px;
             box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.15);
             transition: all 0.4s ease;
-            backdrop-filter: blur(15px); /* Увеличили размытие */
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
-        /* Улучшенный эффект стеклянного блика */
         .update-card::before {
             content: '';
             position: absolute;
@@ -103,20 +102,28 @@
             bottom: 0;
             background: linear-gradient(
                 135deg,
-                rgba(255, 255, 255, 0.05) 0%,
+                rgba(255, 255, 255, 0.08) 0%,
                 rgba(255, 255, 255, 0) 50%,
-                rgba(255, 255, 255, 0.05) 100%
+                rgba(255, 255, 255, 0.08) 100%
             );
             pointer-events: none;
-            z-index: -1;
         }
         
         .update-card:hover {
             transform: translateY(-8px);
             box-shadow: 
-                0 12px 40px rgba(0, 0, 0, 0.4),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.2);
-            background: rgba(80, 80, 140, 0.2);
+                0 12px 40px rgba(0, 0, 0, 0.5),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+            background: rgba(60, 60, 110, 0.25);
+        }
+        
+        .update-card:hover::before {
+            animation: glassGlint 1.8s ease;
+        }
+        
+        @keyframes glassGlint {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            100% { transform: translateX(100%) skewX(-15deg); }
         }
         
         .update-header {
@@ -180,7 +187,6 @@
             transition: all 0.3s;
             border: 1px solid rgba(255,255,255,0.3);
             backdrop-filter: blur(5px);
-            text-shadow: 0 0 2px rgba(0,0,0,0.2);
         }
         
         .btn-download:hover {
@@ -209,7 +215,7 @@
             }
             
             body {
-                animation: gradientBG 6s ease infinite; /* Ещё быстрее на мобильных */
+                animation: gradientBG 4s ease infinite;
             }
         }
     </style>
