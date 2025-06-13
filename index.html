@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Centre | MIUI Style</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Update and Feature Centre</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --mi-orange: #ff6700;
-            --mi-dark: #1a1a2e;
-            --glass-bg: rgba(30, 30, 60, 0.2);
-            --glass-border: rgba(255, 255, 255, 0.15);
+            --electric-blue: #0066ff;
+            --neon-purple: #bc13fe;
+            --deep-space: #0a0a1a;
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-glow: 0 0 10px rgba(100, 149, 237, 0.7);
         }
         
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(-45deg, var(--deep-space), var(--electric-blue), var(--neon-purple), var(--deep-space));
             background-size: 400% 400%;
             color: white;
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            animation: gradientBG 10s ease infinite;
+            animation: gradientBG 8s ease infinite;
+            overflow-x: hidden;
         }
         
         @keyframes gradientBG {
@@ -32,102 +34,70 @@
         }
         
         .container {
-            max-width: 500px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 30px 20px;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
         }
         
-        .miui-header {
+        header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
+            position: relative;
         }
         
-        .miui-title {
-            font-size: 2.2rem;
-            font-weight: 500;
-            margin: 10px 0;
-            color: white;
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #ffffff, #a5c8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--text-glow);
+            animation: glowPulse 3s ease-in-out infinite alternate;
         }
         
-        /* Квадратные карточки в стиле MIUI */
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 10px rgba(100, 149, 237, 0.7); }
+            100% { text-shadow: 0 0 25px rgba(100, 149, 237, 1); }
+        }
+        
+        .subtitle {
+            font-weight: 300;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.8);
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+        
+        .update-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        /* Liquid Glass эффект */
         .update-card {
-            background: var(--glass-bg);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            background: rgba(50, 50, 100, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 0 0 1px var(--glass-border);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            backdrop-filter: blur(15px);
             position: relative;
             overflow: hidden;
+            min-height: 280px;
         }
         
-        /* Круг с цифрой */
-        .update-badge {
-            width: 40px;
-            height: 40px;
-            background: var(--mi-orange);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 20px;
-            box-shadow: 0 0 10px rgba(255, 103, 0, 0.5);
-        }
-        
-        .update-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .update-version {
-            font-size: 1.8rem;
-            font-weight: 500;
-            margin-left: 15px;
-            color: white;
-        }
-        
-        .update-meta {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-            color: rgba(255,255,255,0.8);
-        }
-        
-        .update-meta span {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .btn-download {
-            display: block;
-            width: 100%;
-            background: var(--mi-orange);
-            color: white;
-            text-align: center;
-            padding: 14px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            border: none;
-            margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(255, 103, 0, 0.3);
-        }
-        
-        .btn-download:hover {
-            background: #e55c00;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 103, 0, 0.4);
-        }
-        
-        /* Эффект жидкого стекла */
+        /* Жидкие блики */
         .update-card::before {
             content: '';
             position: absolute;
@@ -143,67 +113,231 @@
             );
             transform: rotate(30deg);
             opacity: 0.5;
+            transition: all 0.8s ease;
+        }
+        
+        .update-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 15px 50px rgba(0, 0, 0, 0.5),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+            background: rgba(70, 70, 120, 0.15);
         }
         
         .update-card:hover::before {
-            animation: glassGlint 2s linear infinite;
+            animation: liquidFlow 3s linear infinite;
+            opacity: 0.8;
         }
         
-        @keyframes glassGlint {
+        @keyframes liquidFlow {
             0% { transform: translateX(-100%) rotate(30deg); }
             100% { transform: translateX(100%) rotate(30deg); }
         }
         
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px 15px;
-            }
-            
-            .miui-title {
-                font-size: 1.8rem;
+        .update-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .update-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: white;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+        
+        .update-version {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(5px);
+        }
+        
+        .update-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .update-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .update-description {
+            margin-bottom: 25px;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.7;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.4s;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn-download:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border-color: rgba(255,255,255,0.4);
+        }
+        
+        .btn-download i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 60px 0 30px;
+            color: rgba(255,255,255,0.6);
+            font-size: 1rem;
+            margin-top: 60px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Эффект частиц */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
             }
             
             .update-card {
-                padding: 20px;
+                min-height: auto;
+                padding: 25px 20px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="particles" id="particles"></div>
+    
     <div class="container">
-        <div class="miui-header">
-            <h1 class="miui-title">Update Centre</h1>
-        </div>
+        <header>
+            <h1 class="main-title">Update and Feature Centre</h1>
+            <p class="subtitle">Download the latest firmware updates</p>
+        </header>
         
-        <div class="update-card">
-            <div class="update-badge">1</div>
-            <div class="update-header">
-                <h2 class="update-version">Update 1</h2>
+        <div class="update-container">
+            <div class="update-card">
+                <div class="update-header">
+                    <h2 class="update-title">Stable Firmware</h2>
+                    <span class="update-version">v2.1.0</span>
+                </div>
+                <div class="update-meta">
+                    <span><i class="fas fa-calendar-alt"></i> 15 June 2024</span>
+                    <span><i class="fas fa-database"></i> 245 MB</span>
+                    <span><i class="fas fa-shield-alt"></i> Security Patch</span>
+                </div>
+                <p class="update-description">
+                    Latest stable firmware with all security updates and performance enhancements for your rental device.
+                </p>
+                <a href="https://drive.google.com/uc?export=download&id=ВАШ_ID" class="btn-download">
+                    <i class="fas fa-download"></i> DOWNLOAD
+                </a>
             </div>
-            <div class="update-meta">
-                <span><i class="fas fa-calendar-alt"></i> 15.06.2024</span>
-                <span><i class="fas fa-database"></i> 245 MB</span>
+            
+            <div class="update-card">
+                <div class="update-header">
+                    <h2 class="update-title">Configuration Pack</h2>
+                    <span class="update-version">2024.06</span>
+                </div>
+                <div class="update-meta">
+                    <span><i class="fas fa-calendar-alt"></i> 10 June 2024</span>
+                    <span><i class="fas fa-database"></i> 15 MB</span>
+                    <span><i class="fas fa-cog"></i> Optimal Settings</span>
+                </div>
+                <p class="update-description">
+                    Pre-configured device settings package for maximum performance and battery life.
+                </p>
+                <a href="https://drive.google.com/uc?export=download&id=ВАШ_ID" class="btn-download">
+                    <i class="fas fa-download"></i> DOWNLOAD
+                </a>
             </div>
-            <p>Stable firmware update with security patches and performance improvements.</p>
-            <a href="https://drive.google.com/uc?export=download&id=ВАШ_ID" class="btn-download">
-                DOWNLOAD
-            </a>
-        </div>
-        
-        <div class="update-card">
-            <div class="update-badge">2</div>
-            <div class="update-header">
-                <h2 class="update-version">Update 2</h2>
-            </div>
-            <div class="update-meta">
-                <span><i class="fas fa-calendar-alt"></i> 10.06.2024</span>
-                <span><i class="fas fa-database"></i> 15 MB</span>
-            </div>
-            <p>Configuration package for optimal device settings.</p>
-            <a href="https://drive.google.com/uc?export=download&id=ВАШ_ID" class="btn-download">
-                DOWNLOAD
-            </a>
         </div>
     </div>
+    
+    <footer>
+        <p>Phone Rental Service © 2024 | Liquid Glass Interface</p>
+    </footer>
+
+    <script>
+        // Создаем эффект частиц
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = window.innerWidth < 768 ? 20 : 40;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = `${Math.random() * 5 + 1}px`;
+            particle.style.height = particle.style.width;
+            particle.style.backgroundColor = `rgba(255, 255, 255, ${Math.random() * 0.1})`;
+            particle.style.borderRadius = '50%';
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.opacity = Math.random() * 0.5 + 0.1;
+            
+            // Анимация движения частиц
+            const duration = Math.random() * 20 + 10;
+            particle.style.animation = `float ${duration}s linear infinite`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
+        
+        // Добавляем ключевые кадры для анимации частиц
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes float {
+                0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+                10% { opacity: 0.3; }
+                90% { opacity: 0.3; }
+                100% { transform: translate(${Math.random() * 100 - 50}px, -100vh) rotate(360deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
