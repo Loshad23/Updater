@@ -9,22 +9,21 @@
     <style>
         :root {
             --electric-blue: #0066ff;
-            --deep-purple: #8a2be2;
-            --violet: #9400d3;
-            --dark-blue: #0a0a2a;
-            --text-glow: 0 0 15px rgba(100, 149, 237, 0.7);
-            --glass-bg: rgba(100, 100, 150, 0.15);
+            --neon-purple: #bc13fe;
+            --deep-space: #0a0a1a;
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-glow: 0 0 10px rgba(100, 149, 237, 0.7);
         }
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(-45deg, var(--dark-blue), var(--electric-blue), var(--violet), var(--deep-purple));
-            background-size: 300% 300%;
+            background: linear-gradient(-45deg, var(--deep-space), var(--electric-blue), var(--neon-purple), var(--deep-space));
+            background-size: 400% 400%;
             color: white;
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            animation: gradientBG 6s ease infinite;
+            animation: gradientBG 8s ease infinite;
             overflow-x: hidden;
         }
         
@@ -38,21 +37,22 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 40px 20px;
+            position: relative;
+            z-index: 2;
         }
         
         header {
             text-align: center;
             margin-bottom: 60px;
             position: relative;
-            z-index: 1;
         }
         
         .main-title {
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             background: linear-gradient(90deg, #ffffff, #a5c8ff);
             -webkit-background-clip: text;
             background-clip: text;
@@ -68,37 +68,36 @@
         
         .subtitle {
             font-weight: 300;
-            font-size: 1.2rem;
-            opacity: 0.9;
-            letter-spacing: 1px;
-            color: rgba(255,255,255,0.9);
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.8);
             text-shadow: 0 0 5px rgba(0,0,0,0.3);
         }
         
         .update-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            position: relative;
-            z-index: 1;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
         
+        /* Liquid Glass эффект */
         .update-card {
-            background: var(--glass-bg);
+            background: rgba(50, 50, 100, 0.1);
             border-radius: 20px;
-            padding: 25px;
+            padding: 30px;
             box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.4),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.2);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 0 0 1px var(--glass-border);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
             position: relative;
             overflow: hidden;
+            min-height: 280px;
         }
         
-        /* Эффект жидкого стекла */
+        /* Жидкие блики */
         .update-card::before {
             content: '';
             position: absolute;
@@ -114,19 +113,19 @@
             );
             transform: rotate(30deg);
             opacity: 0.5;
-            transition: all 0.6s ease;
+            transition: all 0.8s ease;
         }
         
         .update-card:hover {
             transform: translateY(-10px) scale(1.02);
             box-shadow: 
-                0 12px 40px rgba(0, 0, 0, 0.6),
+                0 15px 50px rgba(0, 0, 0, 0.5),
                 inset 0 0 0 1px rgba(255, 255, 255, 0.3);
-            background: rgba(100, 100, 150, 0.25);
+            background: rgba(70, 70, 120, 0.15);
         }
         
         .update-card:hover::before {
-            animation: liquidFlow 2s linear infinite;
+            animation: liquidFlow 3s linear infinite;
             opacity: 0.8;
         }
         
@@ -139,11 +138,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
         }
         
         .update-title {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 600;
             color: white;
             letter-spacing: 1px;
@@ -153,10 +154,10 @@
         .update-version {
             background: rgba(255,255,255,0.15);
             color: white;
-            padding: 5px 15px;
+            padding: 6px 15px;
             border-radius: 20px;
             font-size: 0.9rem;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid var(--glass-border);
             backdrop-filter: blur(5px);
         }
         
@@ -164,9 +165,11 @@
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: rgba(255,255,255,0.8);
-            font-size: 0.95rem;
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
         }
         
         .update-meta span {
@@ -176,9 +179,12 @@
         }
         
         .update-description {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: rgba(255,255,255,0.9);
-            line-height: 1.6;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 1;
         }
         
         .btn-download {
@@ -187,59 +193,50 @@
             justify-content: center;
             background: rgba(255,255,255,0.15);
             color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 12px 25px;
+            border-radius: 30px;
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.3);
+            font-size: 1rem;
+            transition: all 0.4s;
+            border: 1px solid var(--glass-border);
             backdrop-filter: blur(5px);
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
         }
         
         .btn-download:hover {
             background: rgba(255,255,255,0.25);
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border-color: rgba(255,255,255,0.4);
         }
         
         .btn-download i {
             margin-right: 10px;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
         
         footer {
             text-align: center;
-            padding: 50px 0;
+            padding: 60px 0 30px;
             color: rgba(255,255,255,0.6);
-            font-size: 0.9rem;
+            font-size: 1rem;
             margin-top: 60px;
+            position: relative;
+            z-index: 1;
         }
         
-        /* Эффект пузырьков для фона */
-        .bubbles {
+        /* Эффект частиц */
+        .particles {
             position: fixed;
-            width: 100%;
-            height: 100%;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
             z-index: 0;
-            overflow: hidden;
-        }
-        
-        .bubble {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            animation: float linear infinite;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-100vh) rotate(360deg); }
         }
         
         @media (max-width: 768px) {
@@ -248,18 +245,19 @@
             }
             
             .update-card {
-                backdrop-filter: blur(10px);
+                min-height: auto;
+                padding: 25px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="bubbles" id="bubbles"></div>
+    <div class="particles" id="particles"></div>
     
     <div class="container">
         <header>
             <h1 class="main-title">Update and Feature Centre</h1>
-            <p class="subtitle">Download the latest updates for your device</p>
+            <p class="subtitle">Download the latest firmware updates</p>
         </header>
         
         <div class="update-container">
@@ -274,7 +272,7 @@
                     <span><i class="fas fa-shield-alt"></i> Security Patch</span>
                 </div>
                 <p class="update-description">
-                    Latest stable firmware with security updates and performance improvements.
+                    Latest stable firmware with all security updates and performance enhancements for your rental device.
                 </p>
                 <a href="https://drive.google.com/uc?export=download&id=ВАШ_ID" class="btn-download">
                     <i class="fas fa-download"></i> DOWNLOAD
@@ -289,10 +287,10 @@
                 <div class="update-meta">
                     <span><i class="fas fa-calendar-alt"></i> 10 June 2024</span>
                     <span><i class="fas fa-database"></i> 15 MB</span>
-                    <span><i class="fas fa-cog"></i> Settings</span>
+                    <span><i class="fas fa-cog"></i> Optimal Settings</span>
                 </div>
                 <p class="update-description">
-                    Pre-configured settings for optimal device performance.
+                    Pre-configured device settings package for maximum performance and battery life.
                 </p>
                 <a href="https://drive.google.com/uc?export=download&id=ВАШ_ID" class="btn-download">
                     <i class="fas fa-download"></i> DOWNLOAD
@@ -302,33 +300,44 @@
     </div>
     
     <footer>
-        <p>Phone Rental Service © 2024</p>
+        <p>Phone Rental Service © 2024 | Liquid Glass Interface</p>
     </footer>
 
     <script>
-        // Создаем пузырьки для фона
-        const bubblesContainer = document.getElementById('bubbles');
-        const bubbleCount = 15;
+        // Создаем эффект частиц
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = window.innerWidth < 768 ? 20 : 40;
         
-        for (let i = 0; i < bubbleCount; i++) {
-            const bubble = document.createElement('div');
-            bubble.classList.add('bubble');
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = `${Math.random() * 5 + 1}px`;
+            particle.style.height = particle.style.width;
+            particle.style.backgroundColor = `rgba(255, 255, 255, ${Math.random() * 0.1})`;
+            particle.style.borderRadius = '50%';
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.opacity = Math.random() * 0.5 + 0.1;
             
-            // Случайные параметры
-            const size = Math.random() * 60 + 20;
-            const posX = Math.random() * 100;
-            const delay = Math.random() * 5;
+            // Анимация движения частиц
             const duration = Math.random() * 20 + 10;
+            particle.style.animation = `float ${duration}s linear infinite`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
             
-            bubble.style.width = `${size}px`;
-            bubble.style.height = `${size}px`;
-            bubble.style.left = `${posX}%`;
-            bubble.style.bottom = `-${size}px`;
-            bubble.style.animationDelay = `${delay}s`;
-            bubble.style.animationDuration = `${duration}s`;
-            
-            bubblesContainer.appendChild(bubble);
+            particlesContainer.appendChild(particle);
         }
+        
+        // Добавляем ключевые кадры для анимации частиц
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes float {
+                0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+                10% { opacity: 0.3; }
+                90% { opacity: 0.3; }
+                100% { transform: translate(${Math.random() * 100 - 50}px, -100vh) rotate(360deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
