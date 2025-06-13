@@ -3,104 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Rental | Update Center</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>UPDATE CENTER | Phone Rental</title>
     <style>
         :root {
-            --mi-orange: #FF6700; /* фирменный оранж Xiaomi */
+            --mi-orange: #FF6700;
             --mi-dark: #1E1E1E;
-            --mi-light: rgba(255,255,255,0.9);
-            --mi-blur: blur(10px);
+            --mi-card-bg: rgba(255, 255, 255, 0.85);
         }
         
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            background: #f5f5f5;
             margin: 0;
-            padding: 0;
-            min-height: 100vh;
+            padding: 20px;
             color: var(--mi-dark);
         }
         
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
         }
         
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin: 40px 0;
         }
         
         h1 {
             color: var(--mi-orange);
-            font-weight: 500;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 10px;
         }
         
         h2 {
-            font-weight: 400;
-            color: var(--mi-dark);
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding-bottom: 10px;
+            font-weight: 500;
+            margin-top: 0;
         }
         
         .update-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: var(--mi-blur);
+            background: var(--mi-card-bg);
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-        
-        .update-meta {
-            display: flex;
-            justify-content: space-between;
-            color: #666;
-            font-size: 0.9rem;
-            margin: 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         
         .btn-download {
             display: inline-block;
             background: var(--mi-orange);
             color: white;
-            padding: 12px 30px;
-            border-radius: 24px;
+            padding: 12px 25px;
+            border-radius: 20px;
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            box-shadow: 0 4px 10px rgba(255,103,0,0.3);
-        }
-        
-        .btn-download:hover {
-            background: #e55c00;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255,103,0,0.4);
-        }
-        
-        /* Эффекты в стиле MIUI */
-        .update-card:hover {
-            transform: translateY(-3px);
-            transition: all 0.3s;
-        }
-        
-        /* Для мобилок */
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .update-meta {
-                flex-direction: column;
-            }
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -108,24 +64,10 @@
     <div class="container">
         <header>
             <h1>UPDATE CENTER</h1>
-            <p>Download latest firmware for your rental device</p>
         </header>
         
         <div class="update-card">
-            <h2>Stable Update v2.1</h2>
-            <div class="update-meta">
-                <span>Security patch: June 2024</span>
-                <span>Size: 245 MB</span>
-            </div>
-            <a href="https://drive.google.com/uc?export=download&id=ВАШ_ID" class="btn-download">DOWNLOAD</a>
-        </div>
-        
-        <div class="update-card">
-            <h2>Configuration Pack</h2>
-            <div class="update-meta">
-                <span>Version: 2024.06</span>
-                <span>Size: 15 MB</span>
-            </div>
+            <h2>UPDATE</h2>
             <a href="https://drive.google.com/uc?export=download&id=ВАШ_ID" class="btn-download">DOWNLOAD</a>
         </div>
     </div>
