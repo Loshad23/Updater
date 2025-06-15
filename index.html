@@ -18,24 +18,47 @@
     }
 
     .header-card {
-      background: linear-gradient(135deg, #ff8a00, #ff3d00, #ff8a00);
-      background-size: 400% 400%;
-      animation: gradientMove 6s ease infinite;
+      position: relative;
       border-radius: 20px;
       padding: 40px 24px;
-      color: #fff;
-      position: relative;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
       min-height: 220px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      color: #fff;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ff8a00, #ff3d00, #ff8a00);
+      background-size: 400% 400%;
+      animation: bgGradient 10s ease infinite;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
     }
 
-    @keyframes gradientMove {
+    @keyframes bgGradient {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+
+    .wave {
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(135deg, #ff8a00, #ff3d00, #ff8a00);
+      border-radius: 45%;
+      animation: waveAnim 6s ease-in-out infinite;
+      opacity: 0.6;
+      z-index: 1;
+    }
+
+    @keyframes waveAnim {
+      0% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+      50% { transform: translateX(-50%) translateY(-10%) rotate(180deg); }
+      100% { transform: translateX(-50%) translateY(0) rotate(360deg); }
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
     }
 
     .header-card h1 {
@@ -70,7 +93,6 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       font-size: 14px;
       color: #333;
-      cursor: pointer;
     }
 
     .download-btn {
@@ -86,32 +108,29 @@
       display: block;
     }
 
-    .download-btn:hover {
-      background: #005bb5;
-    }
-
   </style>
 </head>
 <body>
 
   <div class="container">
     <div class="header-card">
-      <h1>Flyme AIOS</h1>
-      <div class="version-info">
-        Flyme 12.0.0.0A 
-        <span class="tag">Стабильная</span><br>
-        6.62 GB 2025年5月13日
+      <div class="wave"></div>
+      <div class="header-content">
+        <h1>Flyme 9</h1>
+        <div class="version-info">
+          Flyme 9.11.18.20A 
+          <span class="tag">нестабильная</span><br>
+          2.50 GB 2025.5.13
+        </div>
       </div>
     </div>
 
-    <div class="log-block" onclick="alert('Здесь будет журнал обновлений');">
+    <div class="log-block">
       <span>Журнал обновлений</span>
       <span>›</span>
     </div>
 
-    <a href="https://example.com/your-update-file.zip" class="download-btn" download>
-      Скачать сейчас
-    </a>
+    <a href="https://example.com/your-update-file.zip" class="download-btn">Уже установленно</a>
   </div>
 
 </body>
