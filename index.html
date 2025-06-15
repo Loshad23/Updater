@@ -13,32 +13,23 @@
 
     .container {
       max-width: 400px;
-      margin: 60px auto 0; /* добавили отступ сверху */
+      margin: 0 auto;
       padding: 16px;
     }
 
     .header-card {
-      position: relative;
-      border-radius: 20px;
-      padding: 50px 24px;
-      min-height: 260px;
-      color: #fff;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      overflow: hidden;
-    }
-
-    .header-card::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
       background: linear-gradient(135deg, #ff8a00, #ff3d00, #ff8a00);
       background-size: 400% 400%;
-      animation: gradientMove 8s ease infinite;
+      animation: gradientMove 6s ease infinite;
       border-radius: 20px;
-      z-index: -1;
+      padding: 40px 24px;
+      color: #fff;
+      position: relative;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     @keyframes gradientMove {
@@ -49,7 +40,7 @@
 
     .header-card h1 {
       margin: 0;
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 600;
     }
 
@@ -76,24 +67,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-size: 14px;
       color: #333;
       cursor: pointer;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-
-    #log-content {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      padding: 0;
-      transition: all 0.4s ease;
-      text-align: left;
-    }
-
-    #log-content.open {
-      max-height: 300px;
-      opacity: 1;
-      padding: 10px 0;
     }
 
     .download-btn {
@@ -107,6 +84,10 @@
       font-weight: 600;
       font-size: 16px;
       display: block;
+    }
+
+    .download-btn:hover {
+      background: #005bb5;
     }
 
   </style>
@@ -123,34 +104,15 @@
       </div>
     </div>
 
-    <div class="log-block" onclick="toggleLog()">
+    <div class="log-block" onclick="alert('Здесь будет журнал обновлений');">
       <span>Журнал обновлений</span>
-      <span id="arrow">›</span>
-    </div>
-    <div id="log-content">
-      <ul>
-        <li>Добавлен новый интерфейс</li>
-        <li>Оптимизация производительности</li>
-        <li>Исправлены ошибки</li>
-      </ul>
+      <span>›</span>
     </div>
 
-    <a href="#" class="download-btn">Скачать сейчас</a>
+    <a href="https://example.com/your-update-file.zip" class="download-btn" download>
+      Скачать сейчас
+    </a>
   </div>
-
-  <script>
-    function toggleLog() {
-      const content = document.getElementById('log-content');
-      const arrow = document.getElementById('arrow');
-      if (content.classList.contains('open')) {
-        content.classList.remove('open');
-        arrow.textContent = '›';
-      } else {
-        content.classList.add('open');
-        arrow.textContent = '⌄';
-      }
-    }
-  </script>
 
 </body>
 </html>
