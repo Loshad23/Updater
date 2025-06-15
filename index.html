@@ -93,6 +93,41 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       font-size: 14px;
       color: #333;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .log-block:hover {
+      background: #f0f0f0;
+    }
+
+    .arrow {
+      display: inline-block;
+      transition: transform 0.4s ease;
+    }
+
+    .arrow.open {
+      transform: rotate(90deg);
+    }
+
+    .log-content {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+      background: #fff;
+      border-radius: 8px;
+      margin-top: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      padding: 0 12px;
+    }
+
+    .log-content.open {
+      max-height: 500px;
+      opacity: 1;
+      transform: translateY(0);
+      padding: 12px;
     }
 
     .download-btn {
@@ -116,22 +151,37 @@
     <div class="header-card">
       <div class="wave"></div>
       <div class="header-content">
-        <h1>Flyme 9</h1>
+        <h1>Flyme 9⁸BETA</h1>
         <div class="version-info">
-          Flyme 9.11.18.20A 
-          <span class="tag">Приложение</span><br>
-          8.70МБ 2025.5.13
+          Flyme 9.11.18.10A 
+          <span class="tag">приложение</span><br>
+          8.70 мб 2025.5.13.1
         </div>
       </div>
     </div>
 
-    <div class="log-block">
+    <div class="log-block" onclick="toggleLog()">
       <span>Журнал обновлений</span>
-      <span>›</span>
+      <span class="arrow" id="arrow">›</span>
+    </div>
+    <div class="log-content" id="logContent">
+      <p>- отслеживание ваших устройств</p>
+      <p>- Улучшен движок отолражения на карте</p>
+      <p>- Добавлен поиск и блокировка устройства </p>
+      <!-- Добавь свои пункты -->
     </div>
 
-    <a href="https://drive.google.com/file/d/1s1Ut6MN9Jhzu8rLMGnfbpku2XFSSrdfe/view?usp=sharing" class="download-btn">Достпуно обновление</a>
+    <a href="https://drive.google.com/file/d/1s1Ut6MN9Jhzu8rLMGnfbpku2XFSSrdfe/view?usp=drivesdk" class="download-btn">Скачать сейчас</a>
   </div>
+
+  <script>
+    function toggleLog() {
+      const log = document.getElementById('logContent');
+      const arrow = document.getElementById('arrow');
+      log.classList.toggle('open');
+      arrow.classList.toggle('open');
+    }
+  </script>
 
 </body>
 </html>
