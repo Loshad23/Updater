@@ -3,20 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Центр обновления Flyme</title>
+  <title>Центр обновлений Flyme для Meizu 16X</title>
   <style>
     body {
       margin: 0;
       background: #f5f5f7;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-
     .container {
       max-width: 400px;
       margin: 0 auto;
       padding: 16px;
     }
-
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .header img {
+      width: 100px;
+      height: auto;
+    }
+    .header h2 {
+      color: #333;
+      margin: 15px 0 10px;
+      font-size: 24px;
+    }
+    .header p {
+      color: #666;
+      margin: 0;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .device-model {
+      background: #007aff;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 14px;
+    }
     .header-card {
       position: relative;
       border-radius: 20px;
@@ -24,55 +50,47 @@
       min-height: 220px;
       color: #fff;
       overflow: hidden;
-      background: linear-gradient(135deg, #ff8a00, #ff3d00, #ff8a00);
       background-size: 400% 400%;
       animation: bgGradient 10s ease infinite;
       backdrop-filter: blur(12px);
       box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
     }
-
-    @keyframes bgGradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
     .wave {
       position: absolute;
       bottom: -20px;
       left: 0;
       width: 200%;
       height: 200%;
-      background: linear-gradient(135deg, #ff8a00, #ff3d00, #ff8a00);
       border-radius: 45%;
-      animation: waveAnim 6s ease-in-out infinite;
-      opacity: 0.6;
+      opacity: 0.4;
       z-index: 1;
+      animation: waveAnim 6s ease-in-out infinite;
     }
-
+    @keyframes bgGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
     @keyframes waveAnim {
       0% { transform: translateX(-50%) translateY(0) rotate(0deg); }
       50% { transform: translateX(-50%) translateY(-10%) rotate(180deg); }
       100% { transform: translateX(-50%) translateY(0) rotate(360deg); }
     }
-
     .header-content {
       position: relative;
       z-index: 2;
     }
-
     .header-card h1 {
       margin: 0;
       font-size: 32px;
       font-weight: 600;
     }
-
     .version-info {
       margin-top: 20px;
       font-size: 16px;
       line-height: 1.5;
     }
-
     .version-info .tag {
       background: #4a90e2;
       color: white;
@@ -81,12 +99,11 @@
       padding: 2px 6px;
       margin-left: 4px;
     }
-
     .log-block {
       background: #fff;
       border-radius: 12px;
       padding: 14px 16px;
-      margin-top: 20px;
+      margin-top: 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -94,22 +111,21 @@
       font-size: 14px;
       color: #333;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
     }
-
     .log-block:hover {
       background: #f0f0f0;
+      transform: translateY(-2px);
     }
-
     .arrow {
       display: inline-block;
       transition: transform 0.4s ease;
+      font-weight: bold;
+      font-size: 18px;
     }
-
     .arrow.open {
       transform: rotate(90deg);
     }
-
     .log-content {
       max-height: 0;
       overflow: hidden;
@@ -118,70 +134,189 @@
       transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
       background: #fff;
       border-radius: 8px;
-      margin-top: 8px;
+      margin-top: 15px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       padding: 0 12px;
+      font-size: 14px;
+      line-height: 1.6;
     }
-
     .log-content.open {
       max-height: 500px;
       opacity: 1;
       transform: translateY(0);
-      padding: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
     }
-
+    .log-content ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .log-content li {
+      margin-bottom: 10px;
+    }
     .download-btn {
-      margin-top: 24px;
+      margin-top: 20px;
       background: #007aff;
       color: white;
       text-align: center;
-      padding: 14px 0;
-      border-radius: 8px;
+      padding: 16px 0;
+      border-radius: 12px;
       text-decoration: none;
       font-weight: 600;
       font-size: 16px;
       display: block;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,122,255,0.2);
     }
-
+    .download-btn:hover {
+      background: #0062cc;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,122,255,0.3);
+    }
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #999;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .warning {
+      background: #fff3cd;
+      color: #856404;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      font-size: 14px;
+      border-left: 5px solid #ffeeba;
+      line-height: 1.6;
+    }
+    .update-section {
+      margin-bottom: 40px;
+    }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <div class="header-card">
-      <div class="wave"></div>
-      <div class="header-content">
-        <h1>Flyme 9 BETA</h1>
-        <div class="version-info">
-          Flyme 9.11.18.10A 
-          <span class="tag">приложение</span><br>
-          8.70 мб 2025.5.13.1
+    <div class="header">
+      <img src="https://www.flyme.cn/favicon.ico" alt="Flyme Logo">
+      <h2>Центр обновлений Flyme</h2>
+      <p>Официальные прошивки для</p>
+      <div class="device-model">Meizu 16X</div>
+    </div>
+
+    <div class="warning">
+      ⚠️ Внимание! Перед обновлением:<br>
+      - Сделайте резервную копию данных<br>
+      - Зарядите устройство минимум до 50%<br>
+      - Рекомендуется использовать Wi-Fi
+    </div>
+
+    <div class="update-section">
+      <!-- Flyme 9 -->
+      <div class="header-card" style="background: linear-gradient(135deg,#00c6ff,#0072ff,#00c6ff);">
+        <div class="wave" style="background: linear-gradient(135deg,#00c6ff,#0072ff,#00c6ff);"></div>
+        <div class="header-content">
+          <h1>Flyme 9</h1>
+          <div class="version-info">
+            Flyme 9.3.5.0A <span class="tag">Стабильная</span><br>
+            4.9 ГБ · 2024-08-20
+          </div>
         </div>
       </div>
+      <div class="log-block" onclick="toggleLog(this)">
+        <span>Список изменений</span>
+        <span class="arrow">›</span>
+      </div>
+      <div class="log-content">
+        <ul>
+          <li>Полностью новый дизайн интерфейса</li>
+          <li>Улучшенная система управления жестами</li>
+          <li>Оптимизация энергопотребления</li>
+          <li>Обновление системы безопасности</li>
+          <li>Улучшения в работе камеры</li>
+        </ul>
+      </div>
+      <a href="https://drive.google.com/" class="download-btn" target="_blank">Скачать обновление</a>
     </div>
 
-    <div class="log-block" onclick="toggleLog()">
-      <span>Журнал обновлений</span>
-      <span class="arrow" id="arrow">›</span>
-    </div>
-    <div class="log-content" id="logContent">
-      <p>- отслеживание ваших устройств</p>
-      <p>- Улучшен движок отолражения на карте</p>
-      <p>- Добавлен поиск и блокировка устройства </p>
-      <!-- Добавь свои пункты -->
+    <div class="update-section">
+      <!-- Flyme 8 -->
+      <div class="header-card" style="background: linear-gradient(135deg,#8e2de2,#4a00e0,#8e2de2);">
+        <div class="wave" style="background: linear-gradient(135deg,#8e2de2,#4a00e0,#8e2de2);"></div>
+        <div class="header-content">
+          <h1>Flyme 8</h1>
+          <div class="version-info">
+            Flyme 8.2.1.0A <span class="tag">Стабильная</span><br>
+            4.3 ГБ · 2023-05-10
+          </div>
+        </div>
+      </div>
+      <div class="log-block" onclick="toggleLog(this)">
+        <span>Список изменений</span>
+        <span class="arrow">›</span>
+      </div>
+      <div class="log-content">
+        <ul>
+          <li>Новая анимация интерфейса</li>
+          <li>Улучшения в режиме многозадачности</li>
+          <li>Исправлены проблемы с Bluetooth</li>
+          <li>Обновление сервисов Google Play</li>
+          <li>Оптимизация автономной работы</li>
+        </ul>
+      </div>
+      <a href="https://drive.google.com/" class="download-btn" target="_blank">Скачать обновление</a>
     </div>
 
-    <a href="https://drive.google.com/file/d/1s1Ut6MN9Jhzu8rLMGnfbpku2XFSSrdfe/view?usp=drivesdk" class="download-btn">Скачать сейчас</a>
+    <div class="update-section">
+      <!-- Flyme 7 -->
+      <div class="header-card" style="background: linear-gradient(135deg,#ff416c,#ff4b2b,#ff416c);">
+        <div class="wave" style="background: linear-gradient(135deg,#ff416c,#ff4b2b,#ff416c);"></div>
+        <div class="header-content">
+          <h1>Flyme 7</h1>
+          <div class="version-info">
+            Flyme 7.3.0.0A <span class="tag">Стабильная</span><br>
+            3.8 ГБ · 2022-11-15
+          </div>
+        </div>
+      </div>
+      <div class="log-block" onclick="toggleLog(this)">
+        <span>Список изменений</span>
+        <span class="arrow">›</span>
+      </div>
+      <div class="log-content">
+        <ul>
+          <li>Улучшена стабильность системы</li>
+          <li>Новые функции приватности</li>
+          <li>Обновлённый магазин тем</li>
+          <li>Исправлены ошибки интерфейса</li>
+          <li>Оптимизация работы с памятью</li>
+        </ul>
+      </div>
+      <a href="https://drive.google.com/" class="download-btn" target="_blank">Скачать обновление</a>
+    </div>
+
+    <div class="footer">
+      © 2025 Meizu Technology Co., Ltd. Все права защищены.<br>
+      Версия приложения: 3.2.1<br>
+      Только для модели Meizu 16X
+    </div>
   </div>
 
   <script>
-    function toggleLog() {
-      const log = document.getElementById('logContent');
-      const arrow = document.getElementById('arrow');
-      log.classList.toggle('open');
+    function toggleLog(el) {
+      const content = el.nextElementSibling;
+      const arrow = el.querySelector('.arrow');
+      content.classList.toggle('open');
       arrow.classList.toggle('open');
+      
+      // Закрываем другие открытые лог-блоки
+      document.querySelectorAll('.log-content').forEach(item => {
+        if (item !== content && item.classList.contains('open')) {
+          item.classList.remove('open');
+          item.previousElementSibling.querySelector('.arrow').classList.remove('open');
+        }
+      });
     }
   </script>
-
 </body>
 </html>
