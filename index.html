@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Центр обновлений Flyme для Meizu 16X</title>
+  <title>Центр обновлений Flyme</title>
   <style>
     body {
       margin: 0;
@@ -44,10 +44,47 @@
       padding: 6px 12px;
       border-radius: 20px;
       display: inline-block;
-      margin-top: 10px;
+      margin: 15px auto;
       font-size: 14px;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
     }
-    /* Остальные стили остаются без изменений */
+    .switch-device-btn {
+      display: block;
+      background: #f0f0f0;
+      color: #333;
+      text-align: center;
+      padding: 12px 0;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      margin: 25px 0;
+      transition: all 0.3s ease;
+      border: 1px solid #ddd;
+      cursor: pointer;
+    }
+    .switch-device-btn:hover {
+      background: #e0e0e0;
+      transform: translateY(-2px);
+    }
+    .device-section {
+      transition: all 0.5s ease;
+      overflow: hidden;
+    }
+    .hidden {
+      opacity: 0;
+      height: 0;
+      margin: 0;
+      padding: 0;
+      transform: translateY(20px);
+    }
+    .visible {
+      opacity: 1;
+      height: auto;
+      transform: translateY(0);
+    }
     .header-card {
       position: relative;
       border-radius: 20px;
@@ -203,11 +240,9 @@
 <body>
   <div class="container">
     <div class="header">
-      <!-- Чистый текстовый логотип Flyme -->
       <div class="logo">Flyme</div>
       <h2>Центр обновлений</h2>
-      <p>Официальные прошивки для</p>
-      <div class="device-model">Meizu 16X</div>
+      <p>Официальные прошивки для устройств Meizu</p>
     </div>
 
     <div class="warning">
@@ -217,116 +252,169 @@
       - Рекомендуется использовать Wi-Fi
     </div>
 
-    <div class="update-section">
-      <!-- Flyme 9 -->
-      <div class="header-card" style="background: linear-gradient(135deg,#00c6ff,#0072ff,#00c6ff);">
-        <div class="wave" style="background: linear-gradient(135deg,#00c6ff,#0072ff,#00c6ff);"></div>
-        <div class="header-content">
-          <h1>Flyme 9</h1>
-          <div class="version-info">
-            Flyme 9.21.11.18A <span class="tag">Бета</span><br>
-            2.11 ГБ · 2021-11-19
+    <!-- Раздел для Meizu 16X (изначально видимый) -->
+    <div class="device-section visible" id="section-16x">
+      <div class="device-model" style="text-align: center;">Meizu 16X</div>
+
+      <div class="update-section">
+        <!-- Flyme 9 для 16X -->
+        <div class="header-card" style="background: linear-gradient(135deg,#00c6ff,#0072ff,#00c6ff);">
+          <div class="wave" style="background: linear-gradient(135deg,#00c6ff,#0072ff,#00c6ff);"></div>
+          <div class="header-content">
+            <h1>Flyme 9</h1>
+            <div class="version-info">
+              Flyme 9.3.5.0A <span class="tag">Стабильная</span><br>
+              4.9 ГБ · 2024-08-20
+            </div>
           </div>
         </div>
+        <div class="log-block" onclick="toggleLog(this)">
+          <span>Список изменений</span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="log-content">
+          <ul>
+            <li>Полностью новый дизайн интерфейса</li>
+            <li>Улучшенная система управления жестами</li>
+            <li>Оптимизация энергопотребления</li>
+            <li>Обновление системы безопасности</li>
+            <li>Улучшения в работе камеры</li>
+          </ul>
+        </div>
+        <a href="https://drive.google.com/" class="download-btn" target="_blank">Скачать обновление</a>
       </div>
-      <div class="log-block" onclick="toggleLog(this)">
-        <span>Список изменений</span>
-        <span class="arrow">›</span>
+
+      <div class="update-section">
+        <!-- Flyme 8 для 16X -->
+        <div class="header-card" style="background: linear-gradient(135deg,#8e2de2,#4a00e0,#8e2de2);">
+          <div class="wave" style="background: linear-gradient(135deg,#8e2de2,#4a00e0,#8e2de2);"></div>
+          <div class="header-content">
+            <h1>Flyme 8</h1>
+            <div class="version-info">
+              Flyme 8.2.1.0A <span class="tag">Стабильная</span><br>
+              4.3 ГБ · 2023-05-10
+            </div>
+          </div>
+        </div>
+        <div class="log-block" onclick="toggleLog(this)">
+          <span>Список изменений</span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="log-content">
+          <ul>
+            <li>Новая анимация интерфейса</li>
+            <li>Улучшения в режиме многозадачности</li>
+            <li>Исправлены проблемы с Bluetooth</li>
+            <li>Обновление сервисов Google Play</li>
+            <li>Оптимизация автономной работы</li>
+          </ul>
+        </div>
+        <a href="https://drive.google.com/" class="download-btn" target="_blank">Скачать обновление</a>
       </div>
-      <div class="log-content">
-        <ul>
-          <li>Улучшение проблемы
-• Система
 
-Оптимизация явления падения кадров раскрывающейся панели уведомлений
-
-Устранение проблемы, при которой некоторые устройства не могут повторно подключиться после активного отключения при подключении к локальной портативной точке доступа. Отключение точки доступа и ее повторное открытие может разрешить повторное подключение</li>
-          <li>Устранение проблемы, при которой дисплей AOD становится прозрачным после автоматического отключения экрана при включении экрана
-
-Устранение проблемы, при которой 16X может вернуться на рабочий стол, снова нажав mBack при навигации жестами</li>
-          <li>Оптимизация энергопотребления</li>
-          <li>Обновление системы безопасности</li>
-          <li>Улучшения в работе камеры</li>
-        </ul>
+      <div class="update-section">
+        <!-- Flyme 7 для 16X -->
+        <div class="header-card" style="background: linear-gradient(135deg,#ff416c,#ff4b2b,#ff416c);">
+          <div class="wave" style="background: linear-gradient(135deg,#ff416c,#ff4b2b,#ff416c);"></div>
+          <div class="header-content">
+            <h1>Flyme 7</h1>
+            <div class="version-info">
+              Flyme 7.3.0.0A <span class="tag">Стабильная</span><br>
+              3.8 ГБ · 2022-11-15
+            </div>
+          </div>
+        </div>
+        <div class="log-block" onclick="toggleLog(this)">
+          <span>Список изменений</span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="log-content">
+          <ul>
+            <li>Улучшена стабильность системы</li>
+            <li>Новые функции приватности</li>
+            <li>Обновлённый магазин тем</li>
+            <li>Исправлены ошибки интерфейса</li>
+            <li>Оптимизация работы с памятью</li>
+          </ul>
+        </div>
+        <a href="https://drive.google.com/" class="download-btn" target="_blank">Скачать обновление</a>
       </div>
-      <a href="https://drive.google.com/file/d/1MN8N2gO0dJ4qRZU2b_cUHVKuIir4m2Uw/view?usp=sharing" class="download-btn" target="_blank">Скачать обновление</a>
+
+      <!-- Кнопка переключения на Note 9 -->
+      <div class="switch-device-btn" id="show-note9">
+        Показать прошивки для Meizu Note 9
+      </div>
     </div>
 
-    <div class="update-section">
-      <!-- Flyme 8 -->
-      <div class="header-card" style="background: linear-gradient(135deg,#8e2de2,#4a00e0,#8e2de2);">
-        <div class="wave" style="background: linear-gradient(135deg,#8e2de2,#4a00e0,#8e2de2);"></div>
-        <div class="header-content">
-          <h1>Flyme 8</h1>
-          <div class="version-info">
-            Flyme 8.1.9A <span class="tag">Стабильная</span><br>
-            4.3 ГБ · 2023-12-29
-          </div>
-        </div>
-      </div>
-      <div class="log-block" onclick="toggleLog(this)">
-        <span>Список изменений</span>
-        <span class="arrow">›</span>
-      </div>
-      <div class="log-content">
-        <ul>
-          <li>Системный интерфейс
-Добавлено 12 стилей отображения на голографическом экране растений, животных, насекомых и т.д.
-Мы не будем, не будем, не будем, не будем, не будем...
-Было добавлено небольшое окно приложения для легкого открытия, поддерживающее вертикальный экран для открытия уведомлений, горизонтальный экран для открытия уведомлений, внутриигровые переходы и текстовые операции. В четырех сценах используются маленькие окна для открытия при переходе к некоторым приложениям для повышения удобства работы.
-Дворецкий по мобильному телефону
-Добавлено управление правами на буфер обмена для предотвращения произвольного чтения или записи приложений в буфер обмена, что приводит к утечке конфиденциальности или информационному вмешательству
-Добавлено управление разрешениями датчика ускорения, вы можете отказаться от вызова только тогда, когда приложение находится на экране, чтобы избежать встряхивания приложения при его открытии для автоматического перехода к другим приложениям
-Перехват домогательств поддерживает пользовательский перехват с использованием двух карт
-Межэкранное соединение</li>
-          <li>Там мы сможем любить друг друга.https://linkpc.flyme.com /, можем прилагать настойчивые усилия
-Удобное управление и передача файлов с мобильных телефонов на веб-стороне, поддержка классификации и управления в соответствии с типами файлов
-Интерфейс мобильного телефона выводит экран на веб-терминал и может управляться напрямую
-Путь использования: Системные настройки > Дополнительные методы подключения> Межэкранное соединение
-запись</li>
-          <li>Заметка была переименована в заметку и добавлена поддержка добавления элементов списка дел
-Поддержка быстрого создания нового элемента списка дел в раскрывающемся списке страницы дел
-Помощник по смене
-Оптимизируйте стабильность и скорость передачи данных при замене оборудования</li>
-          <li>Машинный превод</li>
-          <li></li>
-        </ul>
-      </div>
-      <a href="https://drive.google.com/file/d/1vuC7xyToGvIwPS0wyPnlS9-B4IXXkq9F/view?usp=sharing" class="download-btn" target="_blank">Скачать обновление</a>
-    </div>
+    <!-- Раздел для Meizu Note 9 (изначально скрыт) -->
+    <div class="device-section hidden" id="section-note9">
+      <div class="device-model" style="text-align: center;">Meizu Note 9</div>
 
-    <div class="update-section">
-      <!-- Flyme 7 -->
-      <div class="header-card" style="background: linear-gradient(135deg,#ff416c,#ff4b2b,#ff416c);">
-        <div class="wave" style="background: linear-gradient(135deg,#ff416c,#ff4b2b,#ff416c);"></div>
-        <div class="header-content">
-          <h1>Flyme 7</h1>
-          <div class="version-info">
-            Flyme 7.2.0.0A <span class="tag">Стабильная</span><br>
-            2.2 ГБ · 2022-11-15
+      <div class="update-section">
+        <!-- Flyme 8 для Note 9 -->
+        <div class="header-card" style="background: linear-gradient(135deg,#3a7bd5,#00d2ff,#3a7bd5);">
+          <div class="wave" style="background: linear-gradient(135deg,#3a7bd5,#00d2ff,#3a7bd5);"></div>
+          <div class="header-content">
+            <h1>Flyme 8</h1>
+            <div class="version-info">
+              Flyme 8.1.4.0A <span class="tag">Стабильная</span><br>
+              3.5 ГБ · 2023-03-18
+            </div>
           </div>
         </div>
+        <div class="log-block" onclick="toggleLog(this)">
+          <span>Список изменений</span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="log-content">
+          <ul>
+            <li>Обновлённый пользовательский интерфейс</li>
+            <li>Улучшения в работе камеры</li>
+            <li>Новые режимы энергосбережения</li>
+            <li>Исправлены проблемы с Wi-Fi соединением</li>
+            <li>Оптимизация работы процессора</li>
+          </ul>
+        </div>
+        <a href="https://drive.google.com/" class="download-btn" target="_blank">Скачать обновление</a>
       </div>
-      <div class="log-block" onclick="toggleLog(this)">
-        <span>Список изменений</span>
-        <span class="arrow">›</span>
+
+      <div class="update-section">
+        <!-- Flyme 7 для Note 9 -->
+        <div class="header-card" style="background: linear-gradient(135deg,#e44d26,#f16529,#e44d26);">
+          <div class="wave" style="background: linear-gradient(135deg,#e44d26,#f16529,#e44d26);"></div>
+          <div class="header-content">
+            <h1>Flyme 7</h1>
+            <div class="version-info">
+              Flyme 7.2.9.0A <span class="tag">Стабильная</span><br>
+              3.2 ГБ · 2022-07-22
+            </div>
+          </div>
+        </div>
+        <div class="log-block" onclick="toggleLog(this)">
+          <span>Список изменений</span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="log-content">
+          <ul>
+            <li>Улучшена стабильность системы</li>
+            <li>Новые темы оформления</li>
+            <li>Оптимизация работы GPS</li>
+            <li>Исправлены ошибки в приложении камеры</li>
+            <li>Обновление системы безопасности</li>
+          </ul>
+        </div>
+        <a href="https://drive.google.com/" class="download-btn" target="_blank">Скачать обновление</a>
       </div>
-      <div class="log-content">
-        <ul>
-          <li>Улучшена стабильность системы</li>
-          <li>Новые функции приватности</li>
-          <li>Обновлённый магазин тем</li>
-          <li>Исправлены ошибки интерфейса</li>
-          <li>Оптимизация работы с памятью</li>
-        </ul>
+
+      <!-- Кнопка возврата к 16X -->
+      <div class="switch-device-btn" id="show-16x">
+        Вернуться к Meizu 16X
       </div>
-      <a href="https://drive.google.com/file/d/1ky1xlIPThJOIkKGCDPMJ9EDSlhObpHrb/view?usp=sharing" class="download-btn" target="_blank">Скачать обновление</a>
     </div>
 
     <div class="footer">
       © 2025 Meizu Technology Co., Ltd. Все права защищены.<br>
-      Версия приложения: 3.2.1<br>
-      Только для модели Meizu 16X
+      Версия приложения: 3.2.1
     </div>
   </div>
 
@@ -345,6 +433,27 @@
         }
       });
     }
+
+    // Переключение между разделами
+    document.getElementById('show-note9').addEventListener('click', function() {
+      document.getElementById('section-16x').classList.remove('visible');
+      document.getElementById('section-16x').classList.add('hidden');
+      
+      document.getElementById('section-note9').classList.remove('hidden');
+      setTimeout(() => {
+        document.getElementById('section-note9').classList.add('visible');
+      }, 10);
+    });
+
+    document.getElementById('show-16x').addEventListener('click', function() {
+      document.getElementById('section-note9').classList.remove('visible');
+      document.getElementById('section-note9').classList.add('hidden');
+      
+      document.getElementById('section-16x').classList.remove('hidden');
+      setTimeout(() => {
+        document.getElementById('section-16x').classList.add('visible');
+      }, 10);
+    });
   </script>
 </body>
 </html>
