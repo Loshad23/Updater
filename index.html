@@ -13,11 +13,7 @@
             --gold: #fbbf24;
             --silver: #94a3b8;
             --bronze: #a855f7;
-            
-            /* Цвета для статусов */
             --status-guest: #fbbf24;
-            --status-friendly: #4ade80;
-            --status-pause: #64748b;
         }
 
         * { box-sizing: border-box; }
@@ -33,18 +29,11 @@
             justify-content: center;
         }
 
-        .container {
-            width: 100%;
-            max-width: 480px;
-            animation: fadeIn 0.8s ease-out;
-        }
+        .container { width: 100%; max-width: 480px; animation: fadeIn 0.8s ease-out; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- НОВЫЙ БЛОК СТАТУСА --- */
+        /* Верхний статус */
         .status-container {
             background: rgba(15, 23, 42, 0.6);
             border-radius: 20px;
@@ -55,61 +44,16 @@
             backdrop-filter: blur(5px);
         }
 
-        .status-label {
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: #94a3b8;
-            margin-bottom: 8px;
-            display: block;
-            text-transform: uppercase;
-        }
+        .status-label { font-size: 10px; letter-spacing: 2px; color: #94a3b8; margin-bottom: 8px; display: block; text-transform: uppercase; }
+        .current-match { font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px; text-transform: uppercase; }
+        .live-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
+        
+        .status-guest-text { color: var(--status-guest); text-shadow: 0 0 10px rgba(251, 191, 36, 0.3); }
 
-        .current-match {
-            font-size: 18px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            text-transform: uppercase;
-        }
-
-        /* Точка пульсации */
-        .live-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: currentColor;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(1.2); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        /* КЛАССЫ ДЛЯ ТЕБЯ (МЕНЯЙ В HTML НИЖЕ) */
-        .status-guest { color: var(--status-guest); text-shadow: 0 0 10px rgba(251, 191, 36, 0.3); }
-        .status-friendly { color: var(--status-friendly); text-shadow: 0 0 10px rgba(74, 222, 128, 0.3); }
-        .status-pause { color: var(--status-pause); opacity: 0.8; }
-
-        /* --- ОСТАЛЬНЫЕ СТИЛИ --- */
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            margin: 0;
-            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-weight: 900;
-        }
+        /* Таблица лидеров */
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h1 { font-size: 24px; margin: 0; background: linear-gradient(to right, var(--accent-blue), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 4px; font-weight: 900; }
 
         .list { display: flex; flex-direction: column; gap: 12px; }
 
@@ -137,9 +81,25 @@
         .rank-1 .rank-number { color: var(--gold); }
         
         .player-main { flex-grow: 1; }
-        .name { font-size: 17px; font-weight: 700; color: #f8fafc; display: block; }
         
-        .stats-grid { display: flex; gap: 10px; margin-top: 4px; }
+        /* Имя и БЕЙДЖ */
+        .name-wrapper { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .name { font-size: 17px; font-weight: 700; color: #f8fafc; }
+        
+        /* Бейдж статуса игрока */
+        .player-status-badge {
+            font-size: 9px;
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--status-guest);
+            padding: 2px 8px;
+            border-radius: 20px;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+        
+        .stats-grid { display: flex; gap: 10px; }
         .stat-item { background: rgba(0, 0, 0, 0.2); padding: 3px 8px; border-radius: 6px; }
         .stat-label { font-size: 8px; color: #94a3b8; text-transform: uppercase; }
         .stat-value { font-size: 11px; font-weight: 600; }
@@ -163,10 +123,9 @@
 <div class="container">
     <div class="status-container">
         <span class="status-label">Сейчас идет</span>
-        
-        <div class="current-match status-guest">
+        <div class="current-match status-guest-text">
             <span class="live-dot"></span>
-            Дружеский Матч
+            Гостевой матч
         </div>
     </div>
 
@@ -182,10 +141,12 @@
 </div>
 
 <script>
+    // В поле status пишем "гость", чтобы появился бейдж
     const players = [
         { name: "Эдик", elo: 180, games: 60, hours: 4.3 },
         { name: "Артур", elo: 100, games: 60, hours: 4.0 },
         { name: "Леша", elo: 40, games: 20, hours: 2.3 },
+        { name: "Дима", elo: 25, games: 10, hours: 1.5, status: "гость" }, // Добавил Диму со статусом
         { name: "Митя", elo: 0, games: 0,  hours: 0 },
         { name: "Коля", elo: 0, games: 0, hours: 0 },
         { name: "Максим", elo: 0, games: 0,  hours: 0 }
@@ -194,11 +155,15 @@
     function init() {
         const board = document.getElementById('leaderboard');
         players.sort((a, b) => b.elo - a.elo);
+        
         board.innerHTML = players.map((p, i) => `
             <div class="player-card rank-${i+1}" style="animation-delay: ${i * 0.1}s">
                 <div class="rank-number">${i+1}</div>
                 <div class="player-main">
-                    <span class="name">${p.name}</span>
+                    <div class="name-wrapper">
+                        <span class="name">${p.name}</span>
+                        ${p.status === 'гость' ? '<span class="player-status-badge">В ГОСТЯХ</span>' : ''}
+                    </div>
                     <div class="stats-grid">
                         <div class="stat-item"><span class="stat-label">Игры</span> <span class="stat-value">${p.games}</span></div>
                         <div class="stat-item"><span class="stat-label">Часы</span> <span class="stat-value">${p.hours}ч</span></div>
