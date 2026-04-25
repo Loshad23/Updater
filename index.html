@@ -3,15 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ping Pong Pro Stats</title>
+    <title>Пинг-Понг Про Статистика</title>
     <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-blue: #38bdf8;
+            --accent-purple: #818cf8;
+            --gold: #fbbf24;
+            --silver: #94a3b8;
+            --bronze: #a855f7;
+            
+            /* Цвета для статусов */
+            --status-guest: #fbbf24;
+            --status-friendly: #4ade80;
+            --status-pause: #64748b;
+        }
+
         * { box-sizing: border-box; }
+        
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #0b0e14;
+            background: radial-gradient(circle at top left, #1e293b, #0f172a);
             color: #ffffff;
             margin: 0;
             padding: 15px;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
         }
@@ -19,149 +36,156 @@
         .container {
             width: 100%;
             max-width: 480px;
+            animation: fadeIn 0.8s ease-out;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- НОВЫЙ БЛОК СТАТУСА --- */
+        .status-container {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .status-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        .current-match {
+            font-size: 18px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Точка пульсации */
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* КЛАССЫ ДЛЯ ТЕБЯ (МЕНЯЙ В HTML НИЖЕ) */
+        .status-guest { color: var(--status-guest); text-shadow: 0 0 10px rgba(251, 191, 36, 0.3); }
+        .status-friendly { color: var(--status-friendly); text-shadow: 0 0 10px rgba(74, 222, 128, 0.3); }
+        .status-pause { color: var(--status-pause); opacity: 0.8; }
+
+        /* --- ОСТАЛЬНЫЕ СТИЛИ --- */
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            padding-top: 10px;
+            margin-bottom: 20px;
         }
 
         .header h1 {
-            font-size: 26px;
+            font-size: 24px;
             margin: 0;
-            background: linear-gradient(45deg, #38bdf8, #818cf8);
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             font-weight: 900;
         }
 
-        .list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .list { display: flex; flex-direction: column; gap: 12px; }
 
         .player-card {
-            background: #1a1f29;
-            border-radius: 16px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
             padding: 16px;
             display: flex;
             align-items: center;
-            border: 1px solid #2d3544;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
+            opacity: 0;
+            animation: slideIn 0.5s forwards;
         }
 
-        /* Индикатор первого места */
-        .rank-1 { border-left: 5px solid #fbbf24; background: linear-gradient(90deg, #242b38 0%, #1a1f29 100%); }
-        .rank-2 { border-left: 5px solid #cbd5e1; }
-        .rank-3 { border-left: 5px solid #cd7f32; }
+        @keyframes slideIn { to { opacity: 1; transform: translateX(0); } from { opacity: 0; transform: translateX(-20px); } }
 
-        .rank-number {
-            width: 40px;
-            font-size: 20px;
-            font-weight: 900;
-            color: #475569;
-            flex-shrink: 0;
-        }
+        .rank-1 { border-left: 4px solid var(--gold); }
+        .rank-2 { border-left: 4px solid var(--silver); }
+        .rank-3 { border-left: 4px solid var(--bronze); }
 
-        .rank-1 .rank-number { color: #fbbf24; }
-        .rank-2 .rank-number { color: #cbd5e1; }
-        .rank-3 .rank-number { color: #cd7f32; }
-
-        .player-main {
-            flex-grow: 1;
-        }
-
-        .name {
-            font-size: 19px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            display: block;
-        }
-
-        .stats-grid {
-            display: flex;
-            gap: 15px;
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .stat-label {
-            font-size: 10px;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .stat-value {
-            font-size: 14px;
-            font-weight: 600;
-            color: #e2e8f0;
-        }
-
-        .elo-section {
-            text-align: right;
-            margin-left: 10px;
-        }
+        .rank-number { width: 40px; font-size: 20px; font-weight: 900; color: #475569; }
+        .rank-1 .rank-number { color: var(--gold); }
+        
+        .player-main { flex-grow: 1; }
+        .name { font-size: 17px; font-weight: 700; color: #f8fafc; display: block; }
+        
+        .stats-grid { display: flex; gap: 10px; margin-top: 4px; }
+        .stat-item { background: rgba(0, 0, 0, 0.2); padding: 3px 8px; border-radius: 6px; }
+        .stat-label { font-size: 8px; color: #94a3b8; text-transform: uppercase; }
+        .stat-value { font-size: 11px; font-weight: 600; }
 
         .elo-badge {
-            background: #0ea5e9;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
             color: white;
-            padding: 10px 14px;
+            padding: 8px;
             border-radius: 12px;
             font-weight: 800;
-            font-size: 18px;
-            font-family: 'Courier New', monospace;
-            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
-            display: block;
+            min-width: 55px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
         }
 
-        .elo-label {
-            font-size: 10px;
-            color: #0ea5e9;
-            font-weight: bold;
-            margin-top: 4px;
-            text-align: center;
-        }
-
-        .update-info {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 12px;
-            color: #475569;
-            border-top: 1px solid #1e293b;
-            padding-top: 20px;
-        }
+        .update-info { text-align: center; margin-top: 30px; font-size: 10px; color: #64748b; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
-        <h1>DASHBOARD</h1>
+    <div class="status-container">
+        <span class="status-label">Сейчас идет</span>
+        
+        <div class="current-match status-guest">
+            <span class="live-dot"></span>
+            Гостевой матч
+        </div>
     </div>
 
-    <div id="leaderboard" class="list">
-        </div>
+    <div class="header">
+        <h1>ТАБЛИЦА ЛИДЕРОВ</h1>
+    </div>
+
+    <div id="leaderboard" class="list"></div>
 
     <div class="update-info">
-        Данные обновлены: <span id="date"></span>
+        ОБНОВЛЕНО: <span id="date"></span>
     </div>
 </div>
 
 <script>
-    // === ТВОИ ДАННЫЕ (МЕНЯЙ ТУТ) ===
     const players = [
-        { name: "Артур", elo: 100, games: 60, hours: 4 },
-        { name: "Леша", elo: 40, games: 20, hours: 2.30 },
-        { name: "Эдик", elo: 180, games: 60, hours: 4.30 },
+        { name: "Эдик", elo: 180, games: 60, hours: 4.3 },
+        { name: "Артур", elo: 100, games: 60, hours: 4.0 },
+        { name: "Леша", elo: 40, games: 20, hours: 2.3 },
         { name: "Митя", elo: 0, games: 0,  hours: 0 },
         { name: "Коля", elo: 0, games: 0, hours: 0 },
         { name: "Максим", elo: 0, games: 0,  hours: 0 }
@@ -169,37 +193,23 @@
 
     function init() {
         const board = document.getElementById('leaderboard');
-        // Сортировка по Эло
         players.sort((a, b) => b.elo - a.elo);
-
         board.innerHTML = players.map((p, i) => `
-            <div class="player-card rank-${i+1}">
+            <div class="player-card rank-${i+1}" style="animation-delay: ${i * 0.1}s">
                 <div class="rank-number">${i+1}</div>
                 <div class="player-main">
                     <span class="name">${p.name}</span>
                     <div class="stats-grid">
-                        <div class="stat-item">
-                            <span class="stat-label">Матчи</span>
-                            <span class="stat-value">${p.games}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Часы</span>
-                            <span class="stat-value">${p.hours}ч</span>
-                        </div>
+                        <div class="stat-item"><span class="stat-label">Игры</span> <span class="stat-value">${p.games}</span></div>
+                        <div class="stat-item"><span class="stat-label">Часы</span> <span class="stat-value">${p.hours}ч</span></div>
                     </div>
                 </div>
-                <div class="elo-section">
-                    <div class="elo-badge">${p.elo}</div>
-                    <div class="elo-label">POINTS</div>
-                </div>
+                <div class="elo-badge">${p.elo}</div>
             </div>
         `).join('');
 
-        document.getElementById('date').innerText = new Date().toLocaleString('ru-RU', { 
-            day: 'numeric', month: 'long', year: 'numeric' 
-        });
+        document.getElementById('date').innerText = new Date().toLocaleDateString('ru-RU');
     }
-
     init();
 </script>
 
