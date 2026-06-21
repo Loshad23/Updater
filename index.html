@@ -2,18 +2,24 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Международный Спортивный Турнир</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Мобильный Спортивный Турнир</title>
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
+            --bg-color: #090d16;
+            --card-bg: #151f32;
             --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
+            --text-muted: #64748b;
+            --border-color: #22314d;
             --accent: #38bdf8;
             --success: #10b981;
             --danger: #ef4444;
+        }
+
+        /* Оптимизация скролла и тапов на мобильных */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -23,63 +29,74 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* На мобилках на весь экран, на ПК — как мобильное приложение посередине */
+        .app-container {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--bg-color);
         }
 
         header {
-            background: radial-gradient(circle at top, #1e3a8a 0%, #0f172a 70%);
+            background: linear-gradient(to bottom, #111827, var(--bg-color));
             text-align: center;
-            padding: 50px 20px 30px 20px;
+            padding: 30px 16px 20px 16px;
             border-bottom: 1px solid var(--border-color);
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.8rem;
+            font-size: 1.8rem;
             font-weight: 800;
             background: linear-gradient(to right, #38bdf8, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.05em;
+            letter-spacing: -0.03em;
         }
 
         header p {
-            margin: 12px 0 0 0;
-            font-size: 1.2rem;
+            margin: 8px 0 0 0;
+            font-size: 1rem;
             color: var(--text-muted);
             font-weight: 500;
         }
 
+        /* LIVE Блок оптимизированный под узкие экраны */
         .live-status-bar {
-            max-width: 600px;
-            margin: 25px auto 0 auto;
-            background: rgba(30, 41, 59, 0.7);
+            margin: 15px auto 0 auto;
+            background: rgba(21, 31, 50, 0.8);
             border: 1px solid var(--border-color);
-            border-radius: 30px;
-            padding: 10px 20px;
+            border-radius: 20px;
+            padding: 8px 16px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            gap: 10px;
+            width: 100%;
         }
 
         .live-badge {
             background-color: var(--danger);
             color: white;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 20px;
+            padding: 3px 8px;
+            border-radius: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .live-dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background-color: white;
             border-radius: 50%;
             animation: pulse 1.5s infinite;
@@ -92,54 +109,46 @@
         }
 
         .live-text {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .grid-layout {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-
-        @media (max-width: 900px) {
-            .grid-layout {
-                grid-template-columns: 1fr;
-            }
+        .content {
+            padding: 16px;
+            flex: 1;
         }
 
         .card {
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 24px;
+            padding: 16px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
         }
 
         .card h2 {
             margin-top: 0;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
+        /* Таблица лидеров крупная для пальцев */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
         }
 
         th, td {
-            padding: 16px;
+            padding: 14px 10px;
             text-align: left;
             border-bottom: 1px solid var(--border-color);
         }
@@ -148,111 +157,99 @@
             color: var(--text-muted);
             font-weight: 600;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             letter-spacing: 0.05em;
         }
 
         .badge-wrapper {
-            margin-right: 14px;
+            margin-right: 10px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 20px;
-            height: 22px;
+            width: 18px;
+            height: 20px;
         }
 
         .shield {
-            width: 18px;
-            height: 20px;
-            border-radius: 2px 2px 9px 9px;
-            border: 1px solid rgba(255,255,255,0.25);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+            width: 16px;
+            height: 18px;
+            border-radius: 2px 2px 8px 8px;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .shield-pmr {
-            background: linear-gradient(to bottom, #ef4444 0%, #ef4444 38%, #10b981 38%, #10b981 62%, #ef4444 62%, #ef4444 100%);
-        }
-
-        .shield-md {
-            background: linear-gradient(to right, #2563eb 0%, #2563eb 33%, #facc15 33%, #facc15 66%, #ef4444 66%, #ef4444 100%);
-        }
-
-        .shield-ru {
-            background: linear-gradient(to bottom, #ffffff 0%, #ffffff 33%, #2563eb 33%, #2563eb 66%, #ef4444 66%, #ef4444 100%);
-        }
+        .shield-pmr { background: linear-gradient(to bottom, #ef4444 0%, #ef4444 38%, #10b981 38%, #10b981 62%, #ef4444 62%, #ef4444 100%); }
+        .shield-md  { background: linear-gradient(to right, #2563eb 0%, #2563eb 33%, #facc15 33%, #facc15 66%, #ef4444 66%, #ef4444 100%); }
+        .shield-ru  { background: linear-gradient(to bottom, #ffffff 0%, #ffffff 33%, #2563eb 33%, #2563eb 66%, #ef4444 66%, #ef4444 100%); }
 
         .country-td {
             display: flex;
             align-items: center;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .total-score {
             font-weight: 700;
             color: var(--success);
-            font-size: 1.3rem;
-            text-align: right;
-        }
-        
-        th.text-right, td.text-right {
+            font-size: 1.2rem;
             text-align: right;
         }
 
-        .rosters-list {
-            margin-top: 15px;
+        /* Выпадающий список составов (Аккордеон для экономии места) */
+        .accordion-btn {
+            background: #1e293b;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 4px 8px 12px 8px;
         }
 
         .roster-item {
-            padding: 12px 0;
+            padding: 10px 0;
             border-bottom: 1px solid var(--border-color);
         }
+        .roster-item:last-child { border-bottom: none; }
+        .roster-team { font-weight: 600; display: flex; align-items: center; font-size: 0.95rem; }
+        .roster-players { color: #94a3b8; font-size: 0.85rem; padding-left: 28px; margin-top: 2px; }
 
-        .roster-item:last-child {
-            border-bottom: none;
-        }
-
-        .roster-team {
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            margin-bottom: 4px;
-        }
-
-        .roster-players {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            padding-left: 34px;
-        }
-
+        /* Раздел видов спорта списком для мобильных */
         .section-title {
-            margin: 40px 0 20px 0;
-            font-size: 1.5rem;
+            margin: 25px 0 15px 0;
+            font-size: 1.2rem;
             font-weight: 700;
+            padding-left: 4px;
         }
 
-        .sports-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
+        .sports-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
         .sport-card {
             background: var(--card-bg);
             border-radius: 14px;
-            padding: 20px;
+            padding: 14px;
             border: 1px solid var(--border-color);
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .sport-card:hover {
-            border-color: #475569;
         }
 
         .sport-card h3 {
-            margin: 0 0 16px 0;
-            font-size: 1.2rem;
-            font-weight: 600;
+            margin: 0 0 12px 0;
+            font-size: 1.05rem;
+            font-weight: 700;
             color: var(--accent);
         }
 
@@ -260,82 +257,79 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            font-size: 1rem;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
         }
+        .sport-stat:last-child { margin-bottom: 0; }
 
-        .sport-stat:last-child {
-            margin-bottom: 0;
-        }
-
-        .sport-stat .team-info {
-            display: flex;
-            align-items: center;
-        }
+        .sport-stat .team-info { display: flex; align-items: center; }
 
         .sport-stat .score-value {
             font-weight: 700;
-            background: #334155;
-            padding: 2px 8px;
-            border-radius: 6px;
-            min-width: 20px;
+            background: #22314d;
+            padding: 4px 12px;
+            border-radius: 8px;
+            min-width: 35px;
             text-align: center;
+            font-size: 0.95rem;
         }
 
         footer {
             text-align: center;
-            padding: 40px 20px;
-            margin-top: 80px;
+            padding: 25px 16px;
             border-top: 1px solid var(--border-color);
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Международный Спортивный Турнир</h1>
-        <p>Приднестровье • Молдова • Россия</p>
-        
-        <div class="live-status-bar">
-            <div class="live-badge">
-                <div class="live-dot"></div>
-                <span>Live</span>
+    <div class="app-container">
+        <header>
+            <h1>Спортивный Турнир</h1>
+            <p>Приднестровье • Молдова • Россия</p>
+            
+            <div class="live-status-bar">
+                <div class="live-badge">
+                    <div class="live-dot"></div>
+                    <span>Live</span>
+                </div>
+                <div class="live-text" id="live-text-display">Загрузка...</div>
             </div>
-            <div class="live-text" id="live-text-display">Загрузка...</div>
-        </div>
-    </header>
+        </header>
 
-    <div class="container">
-        <div class="grid-layout">
+        <div class="content">
             <div class="card">
                 <h2>🏆 Текущий зачет</h2>
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 60px;">Место</th>
+                            <th style="width: 50px;">Место</th>
                             <th>Страна</th>
-                            <th class="text-right">Баллы</th>
+                            <th style="text-align: right;">Баллы</th>
                         </tr>
                     </thead>
                     <tbody id="leaderboard"></tbody>
                 </table>
             </div>
 
-            <div class="card">
-                <h2>👥 Составы команд</h2>
-                <div class="rosters-list" id="rosters-container"></div>
+            <button class="accordion-btn" onclick="toggleRosters()">
+                <span>👥 Составы команд</span>
+                <span id="arrow-icon">▼</span>
+            </button>
+            <div class="accordion-content id-card" id="rosters-panel">
+                <div class="card" style="margin-bottom:0; padding:12px;" id="rosters-container"></div>
             </div>
+
+            <h2 class="section-title">📊 Блок результатов</h2>
+            <div class="sports-list" id="sports-container"></div>
         </div>
 
-        <h2 class="section-title">📊 Результаты по дисциплинам</h2>
-        <div class="sports-grid" id="sports-container"></div>
+        <footer>
+            <p>© 2026 Международный спортивный комитет.<br>Все права защищены.</p>
+        </footer>
     </div>
-
-    <footer>
-        <p>© 2026 Международный спортивный комитет. Все права защищены.</p>
-    </footer>
 
     <script>
         // =========================================================================
@@ -345,7 +339,7 @@
         // 1. Текущий статус того, что происходит прямо сейчас:
         const LIVE_STATUS = "Турнир еще не начался. Ожидаем участников.";
 
-        // 2. Игроки в командах (можно дописывать новых через запятую):
+        // 2. Игроки в командах:
         const PLAYERS = {
             pmr: "Артур, Эдик, Леша",
             md:  "Коля, Максим",
@@ -354,31 +348,13 @@
 
         // 3. Баллы за игры (просто меняй нули на нужные очки):
         const SCORES = {
-            // ПРИДНЕСТРОВЬЕ
-            pmr: {
-                pingpong:   0,
-                volleyball: 0,
-                football:   0,
-                basketball: 0
-            },
-            // МОЛДОВА
-            md: {
-                pingpong:   0,
-                volleyball: 0,
-                football:   0,
-                basketball: 0
-            },
-            // РОССИЯ
-            ru: {
-                pingpong:   0,
-                volleyball: 0,
-                football:   0,
-                basketball: 0
-            }
+            pmr: { pingpong: 0, volleyball: 0, football: 0, basketball: 0 },
+            md:  { pingpong: 0, volleyball: 0, football: 0, basketball: 0 },
+            ru:  { pingpong: 0, volleyball: 0, football: 0, basketball: 0 }
         };
 
         // =========================================================================
-        // СИСТЕМНЫЙ КОД (НИЖЕ СТРОКИ 315 НИЧЕГО ТРОГАТЬ НЕ НУЖНО)
+        // СИСТЕМНЫЙ КОД (НИЖЕ ЭТОЙ СТРОКИ НИЧЕГО ТРОГАТЬ НЕ НУЖНО)
         // =========================================================================
 
         const config = {
@@ -398,11 +374,21 @@
             return `<div class="badge-wrapper"><div class="shield ${shieldClass}"></div></div>`;
         }
 
+        function toggleRosters() {
+            const panel = document.getElementById('rosters-panel');
+            const arrow = document.getElementById('arrow-icon');
+            if (panel.style.display === 'block') {
+                panel.style.display = 'none';
+                arrow.innerText = '▼';
+            } else {
+                panel.style.display = 'block';
+                arrow.innerText = '▲';
+            }
+        }
+
         function init() {
-            // Вывод LIVE статуса
             document.getElementById('live-text-display').innerText = LIVE_STATUS;
 
-            // Вывод составов
             document.getElementById('rosters-container').innerHTML = Object.keys(config).map(key => `
                 <div class="roster-item">
                     <div class="roster-team">
@@ -413,16 +399,13 @@
                 </div>
             `).join('');
 
-            // Расчет общего зачета
             const standings = Object.keys(config).map(key => {
                 const total = SCORES[key].pingpong + SCORES[key].volleyball + SCORES[key].football + SCORES[key].basketball;
                 return { key, ...config[key], totalScore: total };
             });
 
-            // Сортировка таблицы
             standings.sort((a, b) => b.totalScore - a.totalScore);
 
-            // Отрисовка таблицы
             document.getElementById('leaderboard').innerHTML = standings.map((c, idx) => `
                 <tr>
                     <td style="font-weight: 700; color: var(--text-muted)">#${idx + 1}</td>
@@ -436,7 +419,6 @@
                 </tr>
             `).join('');
 
-            // Отрисовка карточек спорта
             document.getElementById('sports-container').innerHTML = sports.map(sport => `
                 <div class="sport-card">
                     <h3>${sport.name}</h3>
