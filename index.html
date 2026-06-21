@@ -2,181 +2,455 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Пинг-Понг Про Статистика</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Международный Спортивный Турнир</title>
     <style>
         :root {
             --bg-color: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --accent-blue: #38bdf8;
-            --accent-purple: #818cf8;
-            --gold: #fbbf24;
-            --silver: #94a3b8;
-            --bronze: #a855f7;
-            --status-guest: #fbbf24;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --accent: #38bdf8;
+            --success: #10b981;
+            --danger: #ef4444;
         }
 
-        * { box-sizing: border-box; }
-        
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: radial-gradient(circle at top left, #1e293b, #0f172a);
-            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             margin: 0;
-            padding: 15px;
+            padding: 0;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
         }
 
-        .container { width: 100%; max-width: 480px; animation: fadeIn 0.8s ease-out; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Верхний статус */
-        .status-container {
-            background: rgba(15, 23, 42, 0.6);
-            border-radius: 20px;
-            padding: 15px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        header {
+            background: radial-gradient(circle at top, #1e3a8a 0%, #0f172a 70%);
             text-align: center;
-            backdrop-filter: blur(5px);
+            padding: 50px 20px 30px 20px;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .status-label { font-size: 10px; letter-spacing: 2px; color: #94a3b8; margin-bottom: 8px; display: block; text-transform: uppercase; }
-        .current-match { font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px; text-transform: uppercase; }
-        .live-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
-        
-        .status-guest-text { color: var(--status-guest); text-shadow: 0 0 10px rgba(251, 191, 36, 0.3); }
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.05em;
+        }
 
-        /* Таблица лидеров */
-        .header { text-align: center; margin-bottom: 20px; }
-        .header h1 { font-size: 24px; margin: 0; background: linear-gradient(to right, var(--accent-blue), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 4px; font-weight: 900; }
+        header p {
+            margin: 12px 0 0 0;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
 
-        .list { display: flex; flex-direction: column; gap: 12px; }
-
-        .player-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 16px;
+        .live-status-bar {
+            max-width: 600px;
+            margin: 25px auto 0 auto;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 10px 20px;
             display: flex;
             align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-            position: relative;
-            opacity: 0;
-            animation: slideIn 0.5s forwards;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        @keyframes slideIn { to { opacity: 1; transform: translateX(0); } from { opacity: 0; transform: translateX(-20px); } }
-
-        .rank-1 { border-left: 4px solid var(--gold); }
-        .rank-2 { border-left: 4px solid var(--silver); }
-        .rank-3 { border-left: 4px solid var(--bronze); }
-
-        .rank-number { width: 40px; font-size: 20px; font-weight: 900; color: #475569; }
-        .rank-1 .rank-number { color: var(--gold); }
-        
-        .player-main { flex-grow: 1; }
-        
-        /* Имя и БЕЙДЖ */
-        .name-wrapper { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-        .name { font-size: 17px; font-weight: 700; color: #f8fafc; }
-        
-        /* Бейдж статуса игрока */
-        .player-status-badge {
-            font-size: 9px;
-            background: rgba(251, 191, 36, 0.15);
-            color: var(--status-guest);
-            padding: 2px 8px;
-            border-radius: 20px;
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            text-transform: uppercase;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-        }
-        
-        .stats-grid { display: flex; gap: 10px; }
-        .stat-item { background: rgba(0, 0, 0, 0.2); padding: 3px 8px; border-radius: 6px; }
-        .stat-label { font-size: 8px; color: #94a3b8; text-transform: uppercase; }
-        .stat-value { font-size: 11px; font-weight: 600; }
-
-        .elo-badge {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+        .live-badge {
+            background-color: var(--danger);
             color: white;
-            padding: 8px;
-            border-radius: 12px;
+            font-size: 0.75rem;
             font-weight: 800;
-            min-width: 55px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .update-info { text-align: center; margin-top: 30px; font-size: 10px; color: #64748b; text-transform: uppercase; }
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
+        .live-text {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-wrapper {
+            margin-right: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 22px;
+        }
+
+        .shield {
+            width: 18px;
+            height: 20px;
+            border-radius: 2px 2px 9px 9px;
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+        }
+
+        .shield-pmr {
+            background: linear-gradient(to bottom, #ef4444 0%, #ef4444 38%, #10b981 38%, #10b981 62%, #ef4444 62%, #ef4444 100%);
+        }
+
+        .shield-md {
+            background: linear-gradient(to right, #2563eb 0%, #2563eb 33%, #facc15 33%, #facc15 66%, #ef4444 66%, #ef4444 100%);
+        }
+
+        .shield-ru {
+            background: linear-gradient(to bottom, #ffffff 0%, #ffffff 33%, #2563eb 33%, #2563eb 66%, #ef4444 66%, #ef4444 100%);
+        }
+
+        .country-td {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .total-score {
+            font-weight: 700;
+            color: var(--success);
+            font-size: 1.3rem;
+            text-align: right;
+        }
+        
+        th.text-right, td.text-right {
+            text-align: right;
+        }
+
+        .rosters-list {
+            margin-top: 15px;
+        }
+
+        .roster-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .roster-item:last-child {
+            border-bottom: none;
+        }
+
+        .roster-team {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .roster-players {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            padding-left: 34px;
+        }
+
+        .section-title {
+            margin: 40px 0 20px 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .sport-card {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .sport-card:hover {
+            border-color: #475569;
+        }
+
+        .sport-card h3 {
+            margin: 0 0 16px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .sport-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .sport-stat:last-child {
+            margin-bottom: 0;
+        }
+
+        .sport-stat .team-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .sport-stat .score-value {
+            font-weight: 700;
+            background: #334155;
+            padding: 2px 8px;
+            border-radius: 6px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="status-container">
-        <span class="status-label">Сейчас идет</span>
-        <div class="current-match status-guest-text">
-            <span class="live-dot"></span>
-            Дружеский матч
-        </div>
-    </div>
-
-    <div class="header">
-        <h1>ТАБЛИЦА ЛИДЕРОВ</h1>
-    </div>
-
-    <div id="leaderboard" class="list"></div>
-
-    <div class="update-info">
-        ОБНОВЛЕНО: <span id="date"></span>
-    </div>
-</div>
-
-<script>
-    // В поле status пишем "гость", чтобы появился бейдж
-    const players = [
-        { name: "Эдик", elo: 230, games: 60, hours: 4.3 },
-        { name: "Артур", elo: 180, games: 60, hours: 4.0 },
-        { name: "Леша", elo: 175, games: 20, hours: 2.3 },
-        { name: "Дима", elo: 50, games: 10, hours: 1.5, status: "гость" }, // Добавил Диму со статусом
-        { name: "Митя", elo: 0, games: 0,  hours: 0 },
-        { name: "Коля", elo: 0, games: 0, hours: 0 },
-        { name: "Максим", elo: 0, games: 0,  hours: 0 }
-    ];
-
-    function init() {
-        const board = document.getElementById('leaderboard');
-        players.sort((a, b) => b.elo - a.elo);
+    <header>
+        <h1>Международный Спортивный Турнир</h1>
+        <p>Приднестровье • Молдова • Россия</p>
         
-        board.innerHTML = players.map((p, i) => `
-            <div class="player-card rank-${i+1}" style="animation-delay: ${i * 0.1}s">
-                <div class="rank-number">${i+1}</div>
-                <div class="player-main">
-                    <div class="name-wrapper">
-                        <span class="name">${p.name}</span>
-                        ${p.status === 'гость' ? '<span class="player-status-badge">В ГОСТЯХ</span>' : ''}
-                    </div>
-                    <div class="stats-grid">
-                        <div class="stat-item"><span class="stat-label">Игры</span> <span class="stat-value">${p.games}</span></div>
-                        <div class="stat-item"><span class="stat-label">Часы</span> <span class="stat-value">${p.hours}ч</span></div>
-                    </div>
-                </div>
-                <div class="elo-badge">${p.elo}</div>
+        <div class="live-status-bar">
+            <div class="live-badge">
+                <div class="live-dot"></div>
+                <span>Live</span>
             </div>
-        `).join('');
+            <div class="live-text" id="live-text-display">Загрузка...</div>
+        </div>
+    </header>
 
-        document.getElementById('date').innerText = new Date().toLocaleDateString('ru-RU');
-    }
-    init();
-</script>
+    <div class="container">
+        <div class="grid-layout">
+            <div class="card">
+                <h2>🏆 Текущий зачет</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">Место</th>
+                            <th>Страна</th>
+                            <th class="text-right">Баллы</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard"></tbody>
+                </table>
+            </div>
 
+            <div class="card">
+                <h2>👥 Составы команд</h2>
+                <div class="rosters-list" id="rosters-container"></div>
+            </div>
+        </div>
+
+        <h2 class="section-title">📊 Результаты по дисциплинам</h2>
+        <div class="sports-grid" id="sports-container"></div>
+    </div>
+
+    <footer>
+        <p>© 2026 Международный спортивный комитет. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // =========================================================================
+        // 🎛️ ПАНЕЛЬ УПРАВЛЕНИЯ ТУРНИРОМ (ИЗМЕНЯЙ ДАННЫЕ ТОЛЬКО ЗДЕСЬ)
+        // =========================================================================
+        
+        // 1. Текущий статус того, что происходит прямо сейчас:
+        const LIVE_STATUS = "Турнир еще не начался. Ожидаем участников.";
+
+        // 2. Игроки в командах (можно дописывать новых через запятую):
+        const PLAYERS = {
+            pmr: "Артур, Эдик, Леша",
+            md:  "Коля, Максим",
+            ru:  "Митя"
+        };
+
+        // 3. Баллы за игры (просто меняй нули на нужные очки):
+        const SCORES = {
+            // ПРИДНЕСТРОВЬЕ
+            pmr: {
+                pingpong:   0,
+                volleyball: 0,
+                football:   0,
+                basketball: 0
+            },
+            // МОЛДОВА
+            md: {
+                pingpong:   0,
+                volleyball: 0,
+                football:   0,
+                basketball: 0
+            },
+            // РОССИЯ
+            ru: {
+                pingpong:   0,
+                volleyball: 0,
+                football:   0,
+                basketball: 0
+            }
+        };
+
+        // =========================================================================
+        // СИСТЕМНЫЙ КОД (НИЖЕ СТРОКИ 315 НИЧЕГО ТРОГАТЬ НЕ НУЖНО)
+        // =========================================================================
+
+        const config = {
+            pmr: { name: "Приднестровье", shield: "shield-pmr" },
+            md:  { name: "Молдова",       shield: "shield-md" },
+            ru:  { name: "Россия",        shield: "shield-ru" }
+        };
+
+        const sports = [
+            { id: 'pingpong', name: '🏓 Пинг-понг' },
+            { id: 'volleyball', name: '🏐 Волейбол' },
+            { id: 'football', name: '⚽ Футбол' },
+            { id: 'basketball', name: '🏀 Баскетбол' }
+        ];
+
+        function getShield(shieldClass) {
+            return `<div class="badge-wrapper"><div class="shield ${shieldClass}"></div></div>`;
+        }
+
+        function init() {
+            // Вывод LIVE статуса
+            document.getElementById('live-text-display').innerText = LIVE_STATUS;
+
+            // Вывод составов
+            document.getElementById('rosters-container').innerHTML = Object.keys(config).map(key => `
+                <div class="roster-item">
+                    <div class="roster-team">
+                        ${getShield(config[key].shield)}
+                        <span>${config[key].name}</span>
+                    </div>
+                    <div class="roster-players">${PLAYERS[key]}</div>
+                </div>
+            `).join('');
+
+            // Расчет общего зачета
+            const standings = Object.keys(config).map(key => {
+                const total = SCORES[key].pingpong + SCORES[key].volleyball + SCORES[key].football + SCORES[key].basketball;
+                return { key, ...config[key], totalScore: total };
+            });
+
+            // Сортировка таблицы
+            standings.sort((a, b) => b.totalScore - a.totalScore);
+
+            // Отрисовка таблицы
+            document.getElementById('leaderboard').innerHTML = standings.map((c, idx) => `
+                <tr>
+                    <td style="font-weight: 700; color: var(--text-muted)">#${idx + 1}</td>
+                    <td>
+                        <div class="country-td">
+                            ${getShield(c.shield)}
+                            <span>${c.name}</span>
+                        </div>
+                    </td>
+                    <td class="total-score">${c.totalScore}</td>
+                </tr>
+            `).join('');
+
+            // Отрисовка карточек спорта
+            document.getElementById('sports-container').innerHTML = sports.map(sport => `
+                <div class="sport-card">
+                    <h3>${sport.name}</h3>
+                    ${Object.keys(config).map(key => `
+                        <div class="sport-stat">
+                            <div class="team-info">${getShield(config[key].shield)} <span>${config[key].name}</span></div>
+                            <div class="score-value">${SCORES[key][sport.id]}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `).join('');
+        }
+
+        init();
+    </script>
 </body>
 </html>
