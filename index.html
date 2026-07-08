@@ -180,6 +180,7 @@
         .shield-pmr { background: linear-gradient(to bottom, #ef4444 0%, #ef4444 38%, #10b981 38%, #10b981 62%, #ef4444 62%, #ef4444 100%); }
         .shield-md  { background: linear-gradient(to right, #2563eb 0%, #2563eb 33%, #facc15 33%, #facc15 66%, #ef4444 66%, #ef4444 100%); }
         .shield-ru  { background: linear-gradient(to bottom, #ffffff 0%, #ffffff 33%, #2563eb 33%, #2563eb 66%, #ef4444 66%, #ef4444 100%); }
+        .shield-afr { background: linear-gradient(to right, #10b981 0%, #10b981 33%, #facc15 33%, #facc15 66%, #ef4444 66%, #ef4444 100%); }
 
         .country-td {
             display: flex;
@@ -288,7 +289,7 @@
     <div class="app-container">
         <header>
             <h1>Спортивный Турнир</h1>
-            <p>Приднестровье • Молдова • Россия</p>
+            <p>Приднестровье • Молдова • Россия • Африка</p>
             
             <div class="live-status-bar">
                 <div class="live-badge">
@@ -343,14 +344,16 @@
         const PLAYERS = {
             pmr: "Артур, Эдик, Леша",
             md:  "Коля, Максим",
-            ru:  "Митя"
+            ru:  "Митя",
+            afr: "Женя, Рома"
         };
 
         // 3. Баллы за игры (просто меняй нули на нужные очки):
         const SCORES = {
             pmr: { pingpong: 0, volleyball: 0, football: 0, basketball: 0 },
             md:  { pingpong: 0, volleyball: 0, football: 0, basketball: 0 },
-            ru:  { pingpong: 0, volleyball: 0, football: 0, basketball: 0 }
+            ru:  { pingpong: 0, volleyball: 0, football: 0, basketball: 0 },
+            afr: { pingpong: 0, volleyball: 0, football: 0, basketball: 0 }
         };
 
         // =========================================================================
@@ -360,7 +363,8 @@
         const config = {
             pmr: { name: "Приднестровье", shield: "shield-pmr" },
             md:  { name: "Молдова",       shield: "shield-md" },
-            ru:  { name: "Россия",        shield: "shield-ru" }
+            ru:  { name: "Россия",        shield: "shield-ru" },
+            afr: { name: "Африка",        shield: "shield-afr" }
         };
 
         const sports = [
